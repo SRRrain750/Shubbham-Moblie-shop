@@ -1,7 +1,8 @@
-import React from 'react'
+import React from 'react'   ;
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
+import { FaWhatsappSquare } from "react-icons/fa";
 
 
 const Footer = () => {
@@ -19,7 +20,10 @@ const Footer = () => {
             <a href=''>
             <FaLinkedin/>
             </a>
-            
+            <a href=''>
+            <FaWhatsappSquare/>
+            </a>
+
         </div>
     </footer>   
   )
