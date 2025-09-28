@@ -2,28 +2,49 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-
 dotenv.config();
+import  cookieParser from "cookie-parser";
+import morgan from 'morgan';
+import helmet from 'helmet';
+import connectDB from "./config/connectDB.js";
+import userRouter from "./route/user.route.js";
 
-const app = express();
-app.use(express.json());
-app.use(cors());
 
-// MongoDB connection (replace with your MongoDB URI)
-mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/mobile-shop", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+
+const app =express()
+app.use(cors({
+  credentials : true,
+  origin:process.env.FRONTEND_URL
+}));
+
+app.use(express.json())
+app.use(cookieParser())
+app.use(morgan("dev"))
+app.use(helmet({
+
+  crossOriginResourcePolicy : false
+}))
+
+const PORT = process.env.PORT || 8080;
+
+
+app.get("/",(req,res)=>{
+   res.json({
+    message : "Server is running "  + PORT
+   })
 })
-.then(() => console.log("✅ MongoDB connected"))
-.catch(err => console.log("❌ MongoDB error:", err));
 
-// Test route
-app.get("/", (req, res) => {
-  res.send("🚀 Backend API running...");
-});
 
-// Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+app.use('/api/user',userRouter)
+
+connectDB().then(()=>{
+  app.listen(PORT,()=>{
+  console.log("Server is running ",PORT)
+})
+
+})
+
+
+
+
+
