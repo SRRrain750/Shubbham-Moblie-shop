@@ -4,64 +4,65 @@ import bcryptjs from "bcryptjs"
 import VerifyEmailTemplate from "../utils/verifyEmailTemplate.js";
 export async function registerUserController(req,res) {
     try{
-         const {name, email,password}=requestAnimationFrame.body
+         const {name, email,password}=req.body;
 
          if(!name || !email || !password){
-            return response.status(400).json({
+            return res.status(400).json({
                 message:"provide email,name,password",
                 error:true,
-                success:false
-            })
+                success:false,
+            });
          }
 
-         const user = await UserModel.findOne({email})
+         const user = await UserModel.findOne({email});
 
          if(user){
-            return response.json({
-                message : "Already register email",
+            return res.json({
+                message : " Email Already registered ",
                 error:true,
-                success :false
-            })
+                success :false,
+            });
          }
 
-         const salt =await bcryptjs.genSalt(10)
-         const hashPassword =await bcryptjs.hash(password,salt)
+         const salt = await bcryptjs.genSalt(10);
+         const hashPassword = await bcryptjs.hash(password,salt);
 
          const payload = {
             name,
             email,
-            password:hashPassword
-         }
+            password: hashPassword,
+         };
 
          const newUser = new UserModel(payload)
-         const save =await newUser.save()
+         const save = await newUser.save()
         
 
-        const VerifyEmailUrl = `${process.env.FRONTED_URL}/verify-email?code=${save?._id}`
+        const VerifyEmailUrl = `${process.env.FRONTEND_URL}/verify-email?code=${save?._id}`;
 
         const verifyEmail = await sendEmail({
                 sendTo : email,
                 subject:" VerifyEmail email from Shubham-mobile-shop ",
-                html: verifyEmailTemplate({
+                html: VerifyEmailTemplate({
                   name,
                   url:VerifyEmailUrl
                 })
         })
 
 
-     return response.json({
+     return res.json({
       message:"User register successfully",
       error:false,
       success:true,
-      data:save
+      data:save,
      })
 
 
-    } catch(error){}
-    
-      return response.status(500).json({
+    } catch(error){
+      console.error("Register error:",error);
+      return res.status(500).json({
         message:error.message || error,
         error:true,
-        success:false
-      })
+        success:false,
+      });
     }
+   }

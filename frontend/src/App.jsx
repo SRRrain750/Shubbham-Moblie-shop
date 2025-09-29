@@ -4,7 +4,7 @@ import './App.css'
 function App() {
   return(
     <main className='text'>
-      Moblie-Shop-App
+      Mobile-Shop-App
     </main>
   )
 }
