@@ -1,5 +1,8 @@
 import React from 'react';
 import { IoSearch } from "react-icons/io5";
+import { TypeAnimation } from 'react-type-animation';
+
+
 
 const Search = () => {
   return (
@@ -8,7 +11,20 @@ const Search = () => {
         <IoSearch size={22} className='text-neutral-600' />
       </button>
       <div className='text-neutral-400'>
-         Search "Products, categories, brands"
+        <TypeAnimation
+          sequence={[
+            // Same substring at the start will only be typed once, initially
+            // Example for a phone shop
+            'Search for iPhone models', 1000,
+            'Search for Samsung phones', 1000,
+            'Search for Mobile Accessories', 1000,
+            'Search for Latest Deals', 1000,
+            'Search for Best Sellers', 1000,
+          ]}
+          speed={50}
+          repeat={Infinity}
+        />
+
       </div>
     </div>
   )
