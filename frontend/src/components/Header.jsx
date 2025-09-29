@@ -6,7 +6,7 @@ const Header = () => {
   return (
 
     <header className='h-20 shadow-md sticky top-0 '>
-      <div className='container mx-auto flex items-center h-full px-2 justify-between'>
+      <div className='container px-4 lg:px-8 flex items-center h-full  justify-between'>
         {/* logo */}
         <div className='h-full'>
           <div className='h-full flex justify-center items-center'>
