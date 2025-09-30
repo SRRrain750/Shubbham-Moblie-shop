@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from '../assets/logo.svg'
 import Search from './Search.jsx'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
@@ -9,7 +10,7 @@ const Header = () => {
       <div className='container px-4 lg:px-8 flex items-center h-full  justify-between'>
         {/* logo */}
         <div className='h-full'>
-          <div className='h-full flex justify-center items-center'>
+          <Link to={"/"} className='h-full flex justify-center items-center'>
             <img
               src={logo}
               width={180}
@@ -26,7 +27,7 @@ const Header = () => {
               className='lg:hidden'
             />
 
-          </div>
+          </Link>
         </div>
 
         {/* Search */}

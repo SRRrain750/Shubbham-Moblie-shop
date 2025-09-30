@@ -1,16 +1,39 @@
 import React from 'react';
 import { IoSearch } from "react-icons/io5";
 import { TypeAnimation } from 'react-type-animation';
-
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 
 const Search = () => {
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isSearchPage,setIsSearchPage] = useState(false)
+  
+      useEffect(()=>{
+        const isSearch = location.pathname === "/search"
+        setIsSearchPage(isSearch)
+    },[location])
+ 
+  const redirectToSearchPage = () => {
+    navigate('/search');
+  }
+
+  console.log("search",isSearchPage);
+
   return (
-    <div className='w-full min-w-[320px] lg:min-w-[420px] h-12 rounded-lg border border-neutral-300 overflow-hidden flex items-center px-3'>
+    <div className='w-full min-w-[320px] lg:min-w-[420px] h-12 rounded-lg border border-neutral-300 overflow-hidden flex items-center px-3 bg-slate-50 '>
       <button className='cursor-pointer outline-none focus:outline-none p-3 justify-center items-center flex'>
         <IoSearch size={22} className='text-neutral-600' />
       </button>
-      <div className='text-neutral-400'>
+
+      <div>
+
+      </div>
+
+      <div onClick={redirectToSearchPage} className='text-neutral-400'>
         <TypeAnimation
           sequence={[
             // Same substring at the start will only be typed once, initially
