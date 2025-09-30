@@ -10,18 +10,18 @@ const Search = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const [isSearchPage,setIsSearchPage] = useState(false)
-  
-      useEffect(()=>{
-        const isSearch = location.pathname === "/search"
-        setIsSearchPage(isSearch)
-    },[location])
- 
+  const [isSearchPage, setIsSearchPage] = useState(false)
+
+  useEffect(() => {
+    const isSearch = location.pathname === "/search"
+    setIsSearchPage(isSearch)
+  }, [location])
+
   const redirectToSearchPage = () => {
     navigate('/search');
   }
 
-  console.log("search",isSearchPage);
+  console.log("search", isSearchPage);
 
   return (
     <div className='w-full min-w-[320px] lg:min-w-[420px] h-12 rounded-lg border border-neutral-300 overflow-hidden flex items-center px-3 bg-slate-50 '>
@@ -30,25 +30,34 @@ const Search = () => {
       </button>
 
       <div>
+        {
+          !isSearchPage ? (
+            //Not on search page
 
+            <div onClick={redirectToSearchPage} className='text-neutral-400'>
+              <TypeAnimation
+                sequence={[
+                  // Same substring at the start will only be typed once, initially
+                  // Example for a phone shop
+                  'Search for iPhone models', 1000,
+                  'Search for Samsung phones', 1000,
+                  'Search for Mobile Accessories', 1000,
+                  'Search for Latest Deals', 1000,
+                  'Search for Best Sellers', 1000,
+                ]}
+                speed={50}
+                repeat={Infinity}
+              />
+
+            </div>
+          ) : (
+            // When i was on search page
+            <div>
+            </div>
+          )
+        }
       </div>
 
-      <div onClick={redirectToSearchPage} className='text-neutral-400'>
-        <TypeAnimation
-          sequence={[
-            // Same substring at the start will only be typed once, initially
-            // Example for a phone shop
-            'Search for iPhone models', 1000,
-            'Search for Samsung phones', 1000,
-            'Search for Mobile Accessories', 1000,
-            'Search for Latest Deals', 1000,
-            'Search for Best Sellers', 1000,
-          ]}
-          speed={50}
-          repeat={Infinity}
-        />
-
-      </div>
     </div>
   )
 }
