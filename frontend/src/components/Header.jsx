@@ -3,12 +3,24 @@ import logo from '../assets/logo.svg'
 import Search from './Search.jsx'
 import { Link } from 'react-router-dom'
 import { FaRegCircleUser } from "react-icons/fa6";
+import useMobile from '../hooks/useMobile.jsx';
+import { useLocation } from 'react-router-dom';
 
 
 const Header = () => {
-  return (
+   const { isMobile } = useMobile();  // ✅ sahi tarika
+    const location = useLocation();
 
-    <header className=' h-28 lg:h-20 lg:shadow-md sticky top-0  bg-red-500 flex flex-col justify-center gap-1'>
+    const isSearchPage = location.pathname === "/search"
+
+    console.log("location", location);
+    console.log("ismobile", isMobile);
+    console.log("isSearchPage", isSearchPage);
+
+  return (
+    <header className=' h-28 lg:h-20 lg:shadow-md sticky top-0   flex flex-col justify-center gap-1'>
+    {
+      !(isSearchPage && isMobile)&& (
       <div className='container px-4 lg:px-8 flex items-center justify-between'>
         {/* logo */}
         <div className='h-full'>
@@ -50,6 +62,10 @@ const Header = () => {
         </div>
 
       </div>
+      )
+    }      
+      
+
       <div className='container mx-auto px-2 lg:hidden'>
         <Search/>
       </div>
