@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import { FaEyeSlash } from "react-icons/fa";
 // open eye icon
 import { FaEye } from "react-icons/fa";
+import SummaryApi from '../common/SummaryApi';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';    
 
 const Register = () => {
     const [data, setData] = useState({
@@ -31,6 +34,7 @@ const Register = () => {
         if (!isFormValid) {
             return;
         }
+
 
         console.log("Form submitted:", data);
         setSubmitted(true); // ✅ success message ke liye
