@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-// close eye icon
-import { FaEyeSlash } from "react-icons/fa";
-// open eye icon
-import { FaEye } from "react-icons/fa";
+import React, { useState } from 'react'
+import { FaRegEyeSlash } from "react-icons/fa6";
+import { FaRegEye } from "react-icons/fa6";
+import toast from 'react-hot-toast';
+import Axios from '../utils/Axios';
 import SummaryApi from '../common/SummaryApi';
-import axios from 'axios';
-import { toast } from 'react-hot-toast';    
+import AxiosToastError from '../utils/AxiosToastError';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [data, setData] = useState({
@@ -13,148 +13,151 @@ const Register = () => {
         email: "",
         password: "",
         confirmPassword: ""
-    });
-
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    })
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setData((prev) => ({
-            ...prev,
-            [name]: value
-        }));
-    };
+        const { name, value } = e.target
+
+        setData((preve) => {
+            return {
+                ...preve,
+                [name]: value
+            }
+        })
+    }
+
+    const valideValue = Object.values(data).every(el => el)
 
 
-    const [submitted, setSubmitted] = useState(false);
+    const handleSubmit = async(e)=>{
+        e.preventDefault()
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!isFormValid) {
-            return;
+        if(data.password !== data.confirmPassword){
+            toast.error(
+                "password and confirm password must be same"
+            )
+            return
+        }
+
+        try {
+            const response = await Axios({
+                ...SummaryApi.register,
+                data : data
+            })
+            
+            if(response.data.error){
+                toast.error(response.data.message)
+            }
+
+            if(response.data.success){
+                toast.success(response.data.message)
+                setData({
+                    name : "",
+                    email : "",
+                    password : "",
+                    confirmPassword : ""
+                })
+                navigate("/login")
+            }
+
+        } catch (error) {
+            AxiosToastError(error)
         }
 
 
-        console.log("Form submitted:", data);
-        setSubmitted(true); // ✅ success message ke liye
-    };
 
-
-    // ✅ Check if all fields are filled AND passwords match
-    const isFormValid =
-        data.name &&
-        data.email &&
-        data.password &&
-        data.confirmPassword &&
-        data.password === data.confirmPassword;
-
+    }
     return (
-        <section className="w-full container mx-auto px-2">
-            <div className="bg-white my-4 w-full max-w-lg mx-auto rounded p-7">
-                <p>Welcome to Shubham Mobile</p>
+        <section className='w-full container mx-auto px-2'>
+            <div className='bg-white my-4 w-full max-w-lg mx-auto rounded p-7'>
+                <p>Welcome to Binkeyit</p>
 
-                <form className="grid gap-4 mt-6" onSubmit={handleSubmit}>
-
-
-                    {/* Name */}
-                    <div className="grid gap-1">
-                        <label htmlFor="name">Name</label>
+                <form className='grid gap-4 mt-6' onSubmit={handleSubmit}>
+                    <div className='grid gap-1'>
+                        <label htmlFor='name'>Name :</label>
                         <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            placeholder="Enter your name"
+                            type='text'
+                            id='name'
+                            autoFocus
+                            className='bg-blue-50 p-2 border rounded outline-none focus:border-primary-200'
+                            name='name'
                             value={data.name}
                             onChange={handleChange}
-                            className="bg-blue-50 p-2 border rounded outline-none 
-                            focus:border-2 focus:border-primary-200"
+                            placeholder='Enter your name'
                         />
                     </div>
-
-                    {/* Email */}
-                    <div className="grid gap-1">
-                        <label htmlFor="email">Email</label>
+                    <div className='grid gap-1'>
+                        <label htmlFor='email'>Email :</label>
                         <input
-                            type="text"
-                            id="email"
-                            name="email"
-                            placeholder="Enter your email"
+                            type='email'
+                            id='email'
+                            className='bg-blue-50 p-2 border rounded outline-none focus:border-primary-200'
+                            name='email'
                             value={data.email}
                             onChange={handleChange}
-                            className="bg-blue-50 p-2 border rounded outline-none 
-                            focus:border-2 focus:border-primary-200"
+                            placeholder='Enter your email'
                         />
                     </div>
-
-                    {/* Password */}
-                    <div className="grid gap-1 relative">
-                        <label htmlFor="password">Password</label>
-                        <input
-                            type={showPassword ? "text" : "password"}
-                            id="password"
-                            name="password"
-                            placeholder="Enter your password"
-                            value={data.password}
-                            onChange={handleChange}
-                            className="bg-blue-50 p-2 border rounded pr-10 outline-none 
-                            focus:border-2 focus:border-primary-200"
-                        />
-                        {/* Eye Icon */}
-                        <span
-                            className="absolute right-3 top-9 cursor-pointer text-gray-600"
-                            onClick={() => setShowPassword((prev) => !prev)}
-                        >
-                            {showPassword ? <FaEyeSlash size={22} /> : <FaEye size={22} />}
-                        </span>
+                    <div className='grid gap-1'>
+                        <label htmlFor='password'>Password :</label>
+                        <div className='bg-blue-50 p-2 border rounded flex items-center focus-within:border-primary-200'>
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                id='password'
+                                className='w-full outline-none'
+                                name='password'
+                                value={data.password}
+                                onChange={handleChange}
+                                placeholder='Enter your password'
+                            />
+                            <div onClick={() => setShowPassword(preve => !preve)} className='cursor-pointer'>
+                                {
+                                    showPassword ? (
+                                        <FaRegEye />
+                                    ) : (
+                                        <FaRegEyeSlash />
+                                    )
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div className='grid gap-1'>
+                        <label htmlFor='confirmPassword'>Confirm Password :</label>
+                        <div className='bg-blue-50 p-2 border rounded flex items-center focus-within:border-primary-200'>
+                            <input
+                                type={showConfirmPassword ? "text" : "password"}
+                                id='confirmPassword'
+                                className='w-full outline-none'
+                                name='confirmPassword'
+                                value={data.confirmPassword}
+                                onChange={handleChange}
+                                placeholder='Enter your confirm password'
+                            />
+                            <div onClick={() => setShowConfirmPassword(preve => !preve)} className='cursor-pointer'>
+                                {
+                                    showConfirmPassword ? (
+                                        <FaRegEye />
+                                    ) : (
+                                        <FaRegEyeSlash />
+                                    )
+                                }
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Confirm Password */}
-                    <div className="grid gap-1 relative">
-                        <label htmlFor="confirmPassword">Confirm Password</label>
-                        <input
-                            type={showConfirmPassword ? "text" : "password"}
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            placeholder="Re-enter your password"
-                            value={data.confirmPassword}
-                            onChange={handleChange}
-                            className="bg-blue-50 p-2 border rounded pr-10 outline-none 
-                            focus:border-2 focus:border-primary-200"
-                        />
-                        {/* Eye Icon */}
-                        <span
-                            className="absolute right-3 top-9 cursor-pointer text-gray-600"
-                            onClick={() => setShowConfirmPassword((prev) => !prev)}
-                        >
-                            {showConfirmPassword ? <FaEyeSlash size={22} /> : <FaEye size={22} />}
-                        </span>
-                    </div>
+                    <button disabled={!valideValue} className={` ${valideValue ? "bg-green-800 hover:bg-green-700" : "bg-gray-500" }    text-white py-2 rounded font-semibold my-3 tracking-wide`}>Register</button>
 
-                    {/* Password mismatch error */}
-                    {data.confirmPassword && data.password !== data.confirmPassword && (
-                        <p className="text-red-500 text-sm">Passwords do not match</p>
-                    )}
-
-                    {/* Register Button */}
-                    <button
-                        type="submit"
-                        disabled={!isFormValid}
-                        className={`py-2 rounded transition-colors duration-300 
-                               ${isFormValid
-                                ? "bg-green-600 hover:bg-green-700 text-white cursor-pointer"
-                                : "bg-gray-400 text-white cursor-not-allowed"}`}
-                    >
-                        Register
-                    </button>
-
-                    {submitted && (
-                        <p className="text-green-600 text-sm mt-2">✅ Registration successful!</p>
-                    )}
                 </form>
+
+                <p>
+                    Already have account ? <Link to={"/login"} className='font-semibold text-green-700 hover:text-green-800'>Login</Link>
+                </p>
             </div>
         </section>
-    );
-};
+    )
+}
 
-export default Register;
+export default Register
