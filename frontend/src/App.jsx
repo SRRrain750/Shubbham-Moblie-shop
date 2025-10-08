@@ -6,17 +6,10 @@ import React from 'react'
 import { Toaster } from 'react-hot-toast' // ✅ import Toaster
 
 function App() {
-  return (
-    <>
-      <Header />
-
-      {/* ✅ Toaster for toast popups */}
-      <Toaster position="top-center" reverseOrder={false} />
-
-      <main className='min-h-[75vh]'>
-        <Outlet />
-      </main>
-
+  return(
+    <main className='text'>
+      Mobile-Shop-App
+    </main>
       <Footer/>
     </>
   )
