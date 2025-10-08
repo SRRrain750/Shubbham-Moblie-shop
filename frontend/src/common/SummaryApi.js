@@ -7,6 +7,11 @@ const SummaryApi = {
   register: {
     url: `${baseUrl}/api/user/register`,
     method: "POST"
+  },
+
+  login:{
+    url: `${baseUrl}/api/user/login`,
+    method: "POST"
   }
 };
 
