@@ -3,7 +3,8 @@ import React from 'react'
 import Register from '../pages/Register'
 import Login from '../pages/Login'
 import ForgotPassword from '../pages/ForgotPassword'
-
+import OtpVerification from '../pages/OtpVerification'
+import ResetPassword from '../pages/ResetPassword'
 
 const SummaryApi = {
   register: {
@@ -22,6 +23,10 @@ const SummaryApi = {
     },
     forgot_password_otp_verification : {
         url : 'api/user/verify-forgot-password-otp',
+        method : 'put'
+    },
+    resetPassword : {
+        url : "/api/user/reset-password",
         method : 'put'
     },
 

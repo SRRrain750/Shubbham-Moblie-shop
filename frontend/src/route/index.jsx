@@ -8,6 +8,8 @@ import Register from "../pages/Register.jsx";
 import React from "react";
 import ForgotPassword from "../pages/ForgotPassword.jsx";
 import OtpVerification from "../pages/OtpVerification.jsx";
+import ResetPassword from "../pages/ResetPassword.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -35,6 +37,10 @@ const router = createBrowserRouter([
       {
         path:"verification-otp",
         element:<OtpVerification />
+      },
+      {
+        path:"reset-password",
+        element:<ResetPassword />
       }
 
     ]
