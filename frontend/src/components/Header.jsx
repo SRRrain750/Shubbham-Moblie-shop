@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '../assets/logo.svg'
 import Search from './Search.jsx'
 import { Link } from 'react-router-dom'
@@ -8,15 +8,16 @@ import { useLocation } from 'react-router-dom';
 import { MdShoppingCartCheckout } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
+import { GoTriangleUp, GoTriangleDown } from "react-icons/go";
+import UserMenu from './UserMenu.jsx';
 
 const Header = () => {
   const { isMobile } = useMobile();  // ✅ sahi tarika
   const location = useLocation();
   const isSearchPage = location.pathname === "/search"
   const navigate = useNavigate();
-
   const user = useSelector((state) => state.user);
+  const [openUserMenu, setOpenUserMenu] = useState(false);
   console.log("user from  store", user);
   // console.log("location", location);
   // console.log("ismobile", isMobile);
@@ -67,9 +68,29 @@ const Header = () => {
               </button>
               {/* Desktop */}
               <div className='hidden lg:flex items-center gap-10'>
-                <button onClick={redirectToLoginPage} className=' text-lg px-2 text-neutral-600 hover:text-yellow-600'>
-                  Login
-                </button>
+                {
+                  user?._id ? (
+                    <div className='relative'>
+                      <div className='flex items-center gap-2 cursor-pointer' onClick={() => setOpen(!open)}>
+                        <p>Account</p>
+                        <GoTriangleDown />
+                        {/* <GoTriangleUp /> */}
+                      </div>
+                      <div className={'absolute top-12 right-0'}>
+                        <div className='bg-white rounded p-4 min-w-52 lg:shadow-lg'>
+                          <UserMenu />
+                        </div>
+                      </div>
+
+                    </div>
+                  ) : (
+
+                    <button onClick={redirectToLoginPage} className=' text-lg px-2 text-neutral-600 hover:text-yellow-600'>
+                      Login
+                    </button>
+                  )
+                }
+
 
                 <button className='flex items-center gap-2 bg-green-700 hover:bg-green-800 px-3 py-3 rounded text-white'>
                   <div className='animate-bounce'>
