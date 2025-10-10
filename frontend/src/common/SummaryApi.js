@@ -1,5 +1,5 @@
 export const baseUrl = "http://localhost:8080"
-import React from 'react'
+import React, { use } from 'react'
 import Register from '../pages/Register'
 import Login from '../pages/Login'
 import ForgotPassword from '../pages/ForgotPassword'
@@ -29,6 +29,11 @@ const SummaryApi = {
         url : "/api/user/reset-password",
         method : 'put'
     },
+
+    userDetails : {
+      url :'/api/user/user-details',
+      method : 'get'
+    }
 
 };
 

@@ -19,7 +19,7 @@ const addressSchema = new mongoose.Schema({
                 
             },
             country:{
-                type : Number,
+                type : String,
                 
         
             },
@@ -32,7 +32,7 @@ const addressSchema = new mongoose.Schema({
                 default:true
             }
         },{
-            timestamp : true
+            timestamps : true
         
  })
 

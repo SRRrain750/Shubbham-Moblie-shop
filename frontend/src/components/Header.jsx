@@ -7,6 +7,7 @@ import useMobile from '../hooks/useMobile.jsx';
 import { useLocation } from 'react-router-dom';
 import { MdShoppingCartCheckout } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 const Header = () => {
@@ -15,6 +16,8 @@ const Header = () => {
   const isSearchPage = location.pathname === "/search"
   const navigate = useNavigate();
 
+  const user = useSelector((state) => state.user);
+  console.log("user from  store", user);
   // console.log("location", location);
   // console.log("ismobile", isMobile);
   // console.log("isSearchPage", isSearchPage);

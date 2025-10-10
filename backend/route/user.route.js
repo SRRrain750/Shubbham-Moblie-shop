@@ -1,7 +1,9 @@
 import { Router } from "express";
 import { loginController, registerUserController, verifyEmailController ,logoutController, uploadAvatar,updateUserDetails, forgotPasswordController, verifyForgotPasswordOtp, resetpassword, refreshToken} from "../controllers/user.controller.js";
 import auth from "../middleware/auth.js"; 
-import upload from "../utils/upload.js";  
+import upload from "../utils/upload.js"; 
+import { userDetails } from "../controllers/user.controller.js"; 
+
 const userRouter =Router()
 
 userRouter.post('/register',registerUserController)
@@ -13,6 +15,7 @@ userRouter.put('/update-user',auth,updateUserDetails)
 userRouter.put('/forgot-password',forgotPasswordController)
 userRouter.put('/verify-forgot-password-otp',verifyForgotPasswordOtp)
 userRouter.put('/reset-password',resetpassword)
-userRouter.post('refresh-token',refreshToken)
+userRouter.post('/refresh-token',refreshToken)
+userRouter.get('/user-details',auth,userDetails)
 
 export default userRouter
