@@ -27,6 +27,10 @@ const Header = () => {
     navigate('/Login');
   }
 
+  const handleCloseUserMenu = () => {
+    setOpenUserMenu(false);
+  }
+
   return (
     <header className=' h-28 lg:h-20 lg:shadow-md sticky top-0   flex flex-col justify-center gap-1 bg-white'>
       {
@@ -88,7 +92,7 @@ const Header = () => {
 
                         <div className={'absolute top-12 right-0'}>
                           <div className='bg-white rounded p-4 min-w-52 lg:shadow-lg'>
-                            <UserMenu />
+                            <UserMenu close={handleCloseUserMenu}/>
                           </div>
                         </div>
                       )

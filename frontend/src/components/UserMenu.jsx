@@ -8,7 +8,7 @@ import { logout } from '../store/userSlice'
 import toast from 'react-hot-toast'
 import AxiosToastError from '../utils/AxiosToastError'
 
-const UserMenu = () => {
+const UserMenu = ({ close }) => {
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()   // ✅ Add this line
@@ -22,11 +22,7 @@ const UserMenu = () => {
       console.log("logout", response)
 
       if (response.data.success) {
-        // ❌ REMOVE these lines (they cause the red error toast)
-        // if (close) {
-        //   close()
-        // }
-
+        close(); // Close the menu
         dispatch(logout())
         localStorage.clear()
         toast.success(response.data.message)
