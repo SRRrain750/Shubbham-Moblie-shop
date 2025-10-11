@@ -5,6 +5,7 @@ import Login from '../pages/Login'
 import ForgotPassword from '../pages/ForgotPassword'
 import OtpVerification from '../pages/OtpVerification'
 import ResetPassword from '../pages/ResetPassword'
+import { logout } from '../store/userSlice'
 
 const SummaryApi = {
   register: {
@@ -32,6 +33,11 @@ const SummaryApi = {
 
     userDetails : {
       url :'/api/user/user-details',
+      method : 'get'
+    },
+
+    logout : {
+      url : '/api/user/logout',
       method : 'get'
     }
 
