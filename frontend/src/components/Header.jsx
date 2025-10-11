@@ -36,6 +36,8 @@ const Header = () => {
       navigate("/login");
       return;
     }
+
+    navigate("/user");
   }
 
   return (

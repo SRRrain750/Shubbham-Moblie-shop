@@ -22,10 +22,14 @@ const UserMenu = ({ close }) => {
       console.log("logout", response)
 
       if (response.data.success) {
-        close(); // Close the menu
+
+        if (close){
+          close(); // Close the menu
+        }
         dispatch(logout())
         localStorage.clear()
         toast.success(response.data.message)
+        // window.history.back();
         navigate("/")   // ✅ Redirect to home or login page
       }
     } catch (error) {
