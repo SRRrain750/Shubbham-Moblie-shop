@@ -7,6 +7,8 @@ import SummaryApi from '../common/SummaryApi'
 import { logout } from '../store/userSlice'
 import toast from 'react-hot-toast'
 import AxiosToastError from '../utils/AxiosToastError'
+import { TbExternalLink } from "react-icons/tb";
+
 
 const UserMenu = ({ close }) => {
   const user = useSelector((state) => state.user)
@@ -23,7 +25,7 @@ const UserMenu = ({ close }) => {
 
       if (response.data.success) {
 
-        if (close){
+        if (close) {
           close(); // Close the menu
         }
         dispatch(logout())
@@ -41,7 +43,11 @@ const UserMenu = ({ close }) => {
   return (
     <div>
       <div className='font-semibold'>My Account</div>
-      <div className='text-sm'>{user.name || user.mobile}</div>
+      <div className='text-sm flex items-center gap-2' >
+        <span className='max-w-52 text-ellipsis line-clamp-1'>{user.name || user.mobile}</span>
+        <Link to={"/dashboard/profile"} className='hover:text-yellow-600'><TbExternalLink size={15} /></Link> 
+      </div>
+
       <Divider />
       <div className='text-sm grid gap-2'>
         <Link to={''} className='px-2 hover:bg-orange-200'>My Order</Link>
