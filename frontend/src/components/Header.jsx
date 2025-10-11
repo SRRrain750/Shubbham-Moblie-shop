@@ -31,6 +31,13 @@ const Header = () => {
     setOpenUserMenu(false);
   }
 
+  const handleMobileUser = () => {
+    if (!user?._id) {
+      navigate("/login");
+      return;
+    }
+  }
+
   return (
     <header className=' h-28 lg:h-20 lg:shadow-md sticky top-0   flex flex-col justify-center gap-1 bg-white'>
       {
@@ -67,7 +74,7 @@ const Header = () => {
             <div className=''>
 
               {/* User icone only display on mobile version  */}
-              < button onClick={redirectToLoginPage} className='text-neutral-600 lg:hidden'>
+              < button className='text-neutral-600 lg:hidden' onClick={handleMobileUser}>
                 <FaRegCircleUser size={28} />
               </button>
               {/* Desktop */}
