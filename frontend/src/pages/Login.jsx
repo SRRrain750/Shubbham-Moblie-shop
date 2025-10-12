@@ -6,14 +6,18 @@ import Axios from '../utils/Axios';
 import SummaryApi from '../common/SummaryApi';
 import AxiosToastError from '../utils/AxiosToastError';
 import { Link, useNavigate } from 'react-router-dom';
+import fetchUserDetails from '../utils/fetchUserDetails';
+import{setUserDetails} from '../store/userSlice'
+import { useDispatch } from 'react-redux';
 
-const Register = () => {
+const Login = () => {
     const [data, setData] = useState({
         email: "",
         password: ""
     })
     const [showPassword, setShowPassword] = useState(false)
     const navigate = useNavigate()
+    const dispatch = useDispatch() 
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -29,24 +33,31 @@ const Register = () => {
     const valideValue = Object.values(data).every(el => el)
 
 
-    const handleSubmit = async(e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         try {
             const response = await Axios({
                 ...SummaryApi.login,
-                data : data
+                data: data
             })
-            
-            if(response.data.error){
+
+            if (response.data.error) {
                 toast.error(response.data.message)
             }
 
-            if(response.data.success){
+            if (response.data.success) {
                 toast.success(response.data.message)
+                localStorage.setItem('accesstoken', response.data.data.accesstoken)
+                localStorage.setItem('refreshtoken', response.data.data.refreshtoken)
+                
+                const userDetails = await fetchUserDetails();
+                dispatch(setUserDetails(userDetails.data));
+                
+                
                 setData({
-                    email : "",
-                    password : "",
+                    email: "",
+                    password: "",
                 })
                 navigate("/")
             }
@@ -61,7 +72,7 @@ const Register = () => {
     return (
         <section className='w-full container mx-auto px-2'>
             <div className='bg-white my-4 w-full max-w-lg mx-auto rounded p-7'>
-                
+
 
                 <form className='grid gap-4 py-4' onSubmit={handleSubmit}>
                     <div className='grid gap-1'>
@@ -98,10 +109,11 @@ const Register = () => {
                                 }
                             </div>
                         </div>
+                        <Link to={"/forgot-password"} className='block ml-auto hover:text-yellow-600'>Forgot password ?</Link>
                     </div>
-                   
 
-                    <button disabled={!valideValue} className={` ${valideValue ? "bg-green-800 hover:bg-green-700" : "bg-gray-500" }    text-white py-2 rounded font-semibold my-3 tracking-wide`}>Login</button>
+
+                    <button disabled={!valideValue} className={` ${valideValue ? "bg-green-800 hover:bg-green-700" : "bg-gray-500"}    text-white py-2 rounded font-semibold my-3 tracking-wide`}>Login</button>
 
                 </form>
 
@@ -113,4 +125,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default Login
