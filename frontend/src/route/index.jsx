@@ -13,6 +13,8 @@ import UserMenu from "../components/UserMenu.jsx";
 import UserMenuMobile from "../pages/UserMenuMobile.jsx";
 import Dashboard from "../components/Dashboard.jsx";
 import Profile from "../pages/Profile.jsx";
+import MyOrders from "../pages/MyOrders.jsx";
+import Address from "../pages/Address.jsx";
 
 const router = createBrowserRouter([
   {
@@ -60,9 +62,19 @@ const router = createBrowserRouter([
           {
             path: "profile",
             element: <Profile />
+          },
+
+          {
+            path: "myorders",
+            element: <MyOrders/>
+          },
+          {
+            path: "address",
+            element: <Address />
           }
         ]
       }
+
     ]
   }
 ]);
