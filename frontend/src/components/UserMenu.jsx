@@ -40,18 +40,24 @@ const UserMenu = ({ close }) => {
     }
   }
 
+  const handelClose = () => {
+    if (close) {
+      close()
+    }
+  }
+
   return (
     <div>
       <div className='font-semibold'>My Account</div>
       <div className='text-sm flex items-center gap-2' >
         <span className='max-w-52 text-ellipsis line-clamp-1'>{user.name || user.mobile}</span>
-        <Link to={"/dashboard/profile"} className='hover:text-yellow-600'><TbExternalLink size={15} /></Link> 
+        <Link onClick={handelClose} to={"/dashboard/profile"} className='hover:text-yellow-600'><TbExternalLink size={15} /></Link> 
       </div>
 
       <Divider />
       <div className='text-sm grid gap-2'>
-        <Link to={'/dashboard/myorders'} className='px-2 hover:bg-orange-200'>My Order</Link>
-        <Link to={'/dashboard/address'} className='px-2 hover:bg-orange-200'>My Address</Link>
+        <Link  onClick={handelClose} to={'/dashboard/myorders'} className='px-2 hover:bg-orange-200'>My Order</Link>
+        <Link onClick={handelClose} to={'/dashboard/address'} className='px-2 hover:bg-orange-200'>My Address</Link>
         <button
           onClick={handleLogout}
           className='text-left px-2 hover:bg-orange-200 py-1'
