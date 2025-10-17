@@ -6,7 +6,7 @@ import generatedAccessToken from "../utils/generatedAccessToken.js";
 import generatedRefreshToken from "../utils/generatedRefreshToken.js";
 import { response } from "express";
 import pkg from "jsonwebtoken";
-import uploadImageCloudinary from "../utils/uploadImageCloudinary.js";
+import uploadImageCloudinary from "../utils/uploadImageClodinary.js";
 import generatedOtp from "../utils/generatedOtp.js";
 import forgotPasswordTemplate from "../utils/forgotPasswordTemplate.js";
 

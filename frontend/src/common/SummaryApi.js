@@ -6,6 +6,7 @@ import ForgotPassword from '../pages/ForgotPassword'
 import OtpVerification from '../pages/OtpVerification'
 import ResetPassword from '../pages/ResetPassword'
 import { logout } from '../store/userSlice'
+import { AddCategoryController } from '../../../backend/controllers/category.controller'
 
 const SummaryApi = {
   register: {
@@ -47,6 +48,14 @@ const SummaryApi = {
     updateUserDetails : {
       url : '/api/user/update-user',
       method : 'put'
+    },
+    addCategory:{
+      url : '/api/category/add-category',
+      method : 'post'
+    },
+    uploadImage :{
+      url : '/api/file/upload',
+      method : 'post'
     }
 
 };
