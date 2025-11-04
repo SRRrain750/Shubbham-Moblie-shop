@@ -1,13 +1,14 @@
 import CategoryModel from "../models/category.model.js";
 import SubCategoryModel from "../models/subCategory.model.js";
 import ProductModel from "../models/product.model.js";
+import { data } from "react-router";
 
-export const AddCategoryController = async(request,response)=>{
+export const AddCategoryController = async(req,res)=>{
     try {
-        const { name , image } = request.body 
+        const { name , image } = req.body 
 
         if(!name || !image){
-            return response.status(400).json({
+            return res.status(400).json({
                 message : "Enter required fields",
                 error : true,
                 success : false
@@ -22,14 +23,14 @@ export const AddCategoryController = async(request,response)=>{
         const saveCategory = await addCategory.save()
 
         if(!saveCategory){
-            return response.status(500).json({
+            return res.status(500).json({
                 message : "Not Created",
                 error : true,
                 success : false
             })
         }
 
-        return response.json({
+        return res.json({
             message : "Add Category",
             data : saveCategory,
             success : true,
@@ -37,13 +38,59 @@ export const AddCategoryController = async(request,response)=>{
         })
 
     } catch (error) {
-        return response.status(500).json({
+        return res.status(500).json({
             message : error.message || error,
             error : true,
             success : false
         })
     }
 }
+
+export const getCategoryController =async(req,res)=>{
+    try{
+
+        const data =await CategoryModel.find()
+
+        return res.json({
+            data : data,
+            error : false,
+            success : true
+        })
+    }catch(error){
+        return res.status(500).json({
+            message:error.message || error,
+            error : true,
+            success :false
+        })
+    }
+}
+
+// export const updateCategoryController = async(req,res)=>{
+//     try{
+//           const { _id,name,image}= req.body
+
+//           const update = await CategoryModel.updateOne({
+//             _id : _id
+//           },
+//         {
+//                name,
+//                image
+//         })
+
+//         return res.json({
+//               message : "Updated Category",
+//               success : true,
+//               error : false,
+//               data : update
+//         })
+//     }catch{
+//         return res.status(500).json({
+//             message : error.message || error,
+//             error : true,
+//             success : false
+//         })
+//     }
+// }
 
 // export const getCategoryController = async(request,response)=>{
 //     try {
@@ -57,38 +104,38 @@ export const AddCategoryController = async(request,response)=>{
 //         })
 //     } catch (error) {
 //         return response.status(500).json({
-//             message : error.messsage || error,
-//             error : true,
-//             success : false
-//         })
-//     }
-// }
-
-// export const updateCategoryController = async(request,response)=>{
-//     try {
-//         const { _id ,name, image } = request.body 
-
-//         const update = await CategoryModel.updateOne({
-//             _id : _id
-//         },{
-//            name, 
-//            image 
-//         })
-
-//         return response.json({
-//             message : "Updated Category",
-//             success : true,
-//             error : false,
-//             data : update
-//         })
-//     } catch (error) {
-//         return response.status(500).json({
 //             message : error.message || error,
 //             error : true,
 //             success : false
 //         })
 //     }
 // }
+
+export const updateCategoryController = async(req,res)=>{
+    try {
+        const { _id ,name, image } = req.body 
+
+        const update = await CategoryModel.updateOne({
+            _id : _id
+        },{
+           name, 
+           image 
+        })
+
+        return res.json({
+            message : "Updated Category",
+            success : true,
+            error : false,
+            data : update
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message : error.message || error,
+            error : true,
+            success : false
+        })
+    }
+}
 
 // export const deleteCategoryController = async(request,response)=>{
 //     try {

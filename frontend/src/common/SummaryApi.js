@@ -1,4 +1,6 @@
-export const baseUrl = "http://localhost:8080"
+ export const baseUrl = "http://localhost:8080"
+// export const baseUrl = import.meta.env.VITE_API_URL
+
 import React, { use } from 'react'
 import Register from '../pages/Register'
 import Login from '../pages/Login'
@@ -6,7 +8,7 @@ import ForgotPassword from '../pages/ForgotPassword'
 import OtpVerification from '../pages/OtpVerification'
 import ResetPassword from '../pages/ResetPassword'
 import { logout } from '../store/userSlice'
-import { AddCategoryController } from '../../../backend/controllers/category.controller'
+import { AddCategoryController, updateCategoryController } from '../../../backend/controllers/category.controller'
 
 const SummaryApi = {
   register: {
@@ -56,6 +58,14 @@ const SummaryApi = {
     uploadImage :{
       url : '/api/file/upload',
       method : 'post'
+    },
+    getCategory : {
+      url : '/api/category/get',
+      method : 'get'
+    },
+    updateCategory : {
+      url : '/api/category/update',
+      method : 'put'
     }
 
 };

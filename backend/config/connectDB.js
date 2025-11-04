@@ -11,9 +11,9 @@ if(!process.env.MONGODB_URI){
 
 async function connectDB() {
     try{
-        await mongoose.connect(process.env.MONGODB_URI)
+        await mongoose.connect(process.env.MONGODB_URI);
         
-        console.log("connect DB")
+        console.log("connect DB successfully")
     }catch(error){
         console.log("MongoDB connect error",error.message)
         process.exit(1)
