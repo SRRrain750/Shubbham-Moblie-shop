@@ -14,7 +14,6 @@ const productSchema = new mongoose.Schema({
              {
             type : mongoose.Schema.ObjectId,
              ref:'category'
-    
         }
     ],
         subCategory: [{

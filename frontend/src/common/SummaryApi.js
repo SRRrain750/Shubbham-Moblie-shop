@@ -8,7 +8,7 @@ import ForgotPassword from '../pages/ForgotPassword'
 import OtpVerification from '../pages/OtpVerification'
 import ResetPassword from '../pages/ResetPassword'
 import { logout } from '../store/userSlice'
-import { AddCategoryController, updateCategoryController } from '../../../backend/controllers/category.controller'
+import { AddCategoryController, deleteCategoryController, updateCategoryController } from '../../../backend/controllers/category.controller'
 
 const SummaryApi = {
   register: {
@@ -66,6 +66,10 @@ const SummaryApi = {
     updateCategory : {
       url : '/api/category/update',
       method : 'put'
+    },
+    deleteCategory : {
+     url : '/api/category/delete',
+     method : 'delete' 
     }
 
 };
