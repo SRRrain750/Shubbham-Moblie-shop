@@ -7,8 +7,10 @@ import { Toaster } from 'react-hot-toast'
 import { Outlet } from 'react-router-dom'
 import fetchUserDetails from './utils/fetchUserDetails.js'
 import { setUserDetails } from './store/userSlice.js' // ✅ correct import
+import { setAllCategory } from './store/productSlice.js'
 import { useDispatch } from 'react-redux'
-
+import Axios from './utils/Axios.js'
+import SummaryApi from './common/SummaryApi.js'
 
 
 function App() {
@@ -18,9 +20,30 @@ function App() {
     const userData = await fetchUserDetails();
     dispatch(setUserDetails(userData.data)); // ✅ use the correct action
   };
+   const fetchCategory =async()=>{
+              try{
+                    //setLoading(true)
+                    const response =await Axios({
+                      ...SummaryApi.getCategory
+                    })
+                    const { data : responseData } =response
+
+                    if(responseData.success){
+                      dispatch(setAllCategory(responseData.data))
+                       
+                    }
+              }catch(error){
+  
+              }finally{
+                //setLoading(false)
+              }
+            }
+         
 
   useEffect(() => {
     fetchUser();
+    fetchCategory();
+
   }, []);
 
   return (
