@@ -29,8 +29,9 @@ function App() {
                     const { data : responseData } =response
 
                     if(responseData.success){
+                      
                       dispatch(setAllCategory(responseData.data))
-                       
+                      //setCategoryData(responseData.data) 
                     }
               }catch(error){
   

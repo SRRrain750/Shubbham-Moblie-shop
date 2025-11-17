@@ -98,7 +98,6 @@ const UploadCategoryModel = ({ close,fetchData }) => {
                                             alt='category'
                                             src={data.image}
                                             className='w-full h-full object-scale-down'
-
                                         />
                                     ) : (
                                         <p className='text-sm text-neutral-500'>No Image</p>
