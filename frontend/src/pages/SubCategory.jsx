@@ -148,7 +148,7 @@ const SubCategory = () => {
         {
           openAddSubCategory && (
             <UploadSubCategoryModel
-            close={()=>setOpenAddSubCategory(false)}
+             close={()=>setOpenAddSubCategory(false)}
               fetchData={fetchSubCategory}
             />
           )

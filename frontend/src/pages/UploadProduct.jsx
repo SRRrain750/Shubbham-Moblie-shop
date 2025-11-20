@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import  { FaCloudUploadAlt } from "react-icons/fa";
 import uploadImage from '../utils/UploadImage';
 import Loading from '../components/Loading.jsx'
@@ -7,6 +7,10 @@ import { MdDelete } from "react-icons/md";
 import { useSelector } from 'react-redux';
 import { IoClose } from 'react-icons/io5';
 import AddFieldComponent from '../components/AddFieldComponent.jsx';
+import Axios from '../utils/Axios.js';
+import SummaryApi from '../common/SummaryApi.js';
+import successAlert from '../utils/SuccessAlert.js';
+import AxiosToastError from '../utils/AxiosToastError.js';
 const UploadProduct = () => {
   const [ data, setData ] = useState({
       name : "",
@@ -102,10 +106,42 @@ const UploadProduct = () => {
       setOpenAddField(false)
   }
 
-  const handleSubmit =(e)=>{
-       e.preventDefault()  
+  const handleSubmit =async(e)=>{
+       e.preventDefault() 
        console.log('data',data)
+
+       try{
+          const response = await Axios({
+            ...SummaryApi.createProduct,
+            data : data
+          }) 
+
+          const { data : responseData } = response
+
+          if(responseData.success){
+              successAlert(responseData.message)
+              setData({
+                        name : "",
+                        image : [],
+                        category : [],
+                        subCategory :[],
+                        unit : "",
+                        stock : "",
+                        price : "",
+                        discount : "",
+                        description : "",
+                         more_details : {},
+              })
+          }
+       }catch(error){
+          AxiosToastError(error)
+       }
+       
   }
+
+  // useEffect(()=>{
+  //     successAlert("Upload successfully")  
+  // },[])
   return (
      <section>
       <div className='p-2 bg-white shadow-md flex items-center justify-between'>
