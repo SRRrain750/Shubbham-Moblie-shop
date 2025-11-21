@@ -60,6 +60,9 @@ function App() {
                 //setLoading(false)
               }
   }
+
+
+  
   useEffect(() => {
     fetchUser();
     fetchCategory();
