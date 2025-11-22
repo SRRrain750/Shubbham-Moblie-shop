@@ -7,7 +7,7 @@ import { Toaster } from 'react-hot-toast'
 import { Outlet } from 'react-router-dom'
 import fetchUserDetails from './utils/fetchUserDetails.js'
 import { setUserDetails } from './store/userSlice.js' // ✅ correct import
-import { setAllCategory , setAllSubCategory} from './store/productSlice.js'
+import { setAllCategory , setAllSubCategory,setLoadingCategory} from './store/productSlice.js'
 import { useDispatch } from 'react-redux'
 import Axios from './utils/Axios.js'
 import SummaryApi from './common/SummaryApi.js'
@@ -22,7 +22,7 @@ function App() {
   };
    const fetchCategory =async()=>{
               try{
-                    //setLoading(true)
+                    dispatch(setLoadingCategory(true))
                     const response =await Axios({
                       ...SummaryApi.getCategory
                     })
@@ -36,7 +36,7 @@ function App() {
               }catch(error){
   
               }finally{
-                //setLoading(false)
+                dispatch(setLoadingCategory(false))
               }
             }
          
@@ -60,7 +60,6 @@ function App() {
                 //setLoading(false)
               }
   }
-
 
   
   useEffect(() => {
