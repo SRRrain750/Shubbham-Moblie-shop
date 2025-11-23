@@ -21,6 +21,7 @@ import UploadProduct from "../pages/UploadProduct.jsx";
 import ProductAdmin from "../pages/ProductAdmin.jsx";
 import AdminPermission from "../layouts/AdminPermission.jsx";
 import ProductListPage from "../pages/ProductListPage.jsx";
+import ProductDisplayPage from "../pages/ProductDisplayPage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
               element :<ProductListPage/>
              }
         ]
+      },
+      {
+        path : "product/:product",
+        element :<ProductDisplayPage/>
       }
 
     ]

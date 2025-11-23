@@ -1,12 +1,13 @@
 import { Router } from 'express'
 import auth from '../middleware/auth.js'
-import { createProductController, getProductController } from '../controllers/product.controller.js';
+import { createProductController, getProductByCategory, getProductController } from '../controllers/product.controller.js';
 import  { admin } from '../middleware/Admin.js'
+
 const  productRouter = Router()
 
 productRouter.post("/create", auth, admin, createProductController)
 productRouter.post("/get",getProductController)
-
+productRouter.post("/get-product-by-category",getProductByCategory)
 export default productRouter;
 
 
