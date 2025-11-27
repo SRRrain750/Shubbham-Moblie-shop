@@ -54,8 +54,8 @@ const CardProduct = ({ data }) => {
   const url = `/product/${validURLConvert(data.name)}-${data._id}`
 
   return (
-    <Link to={url} className="border p-4 grid gap-3 max-w-64 lg:min-w-52 rounded  ">
-      <div className="h-42 w-full rounded overflow-hidden flex items-center justify-center bg-gray-50">
+    <Link to={url} className="border py-2 lg:p-4 grid  gap-2 lg:gap-3 man-w-36  lg:min-w-52 rounded  cursor-pointer bg-white">
+      <div className="min-h-20 w-full max-h-24 lg:max-h-32 rounded overflow-hidden flex items-center justify-center">
          <img
           src={data.image[0]}
           className="h-full w-full object-contain p-1 "
@@ -69,40 +69,24 @@ const CardProduct = ({ data }) => {
         <span className='text-sm text-gray-600 ml-1'>({data.rating})</span>
       </div>
 
-       <div className="font-medium text-ellipsis line-clamp-2">
+       <div className=" px-2 lg:px-0 font-medium text-ellipsis text-sm lg:text-base line-clamp-2">
          {data.name}
        </div>
-       <div className="w-fit">{data.unit}</div>
+       <div className="w-fit px-2 lg:px-0 text-sm lg:text-base">{data.unit}</div>
 
-       <div className="flex items-center justify-between gap-3">
-         <div className="font-semibold">
+       <div className=" px-2 lg:px-0 flex items-center justify-between gap-1 lg:gap-3  text-sm lg:text-base">
+         <div className="font-semibold ">
           {DisplayPriceInRupees(data.price)}
          </div>
 
-       {/* {qty === 0 ? (
+       <div className="">
           <button
-            onClick={() => setQty(1)}
-            className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded"
-          >
+           
+            className="bg-green-600 hover:bg-green-700 text-white px-2 lg:px-4 py-1 rounded">
             Add
           </button>
-        ) : (
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setQty(qty - 1)}
-              className="px-3 py-1 bg-red-500 text-white rounded"
-            >
-              -
-            </button>
-            <span className="font-medium">{qty}</span>
-            <button
-              onClick={() => setQty(qty + 1)}
-              className="px-3 py-1 bg-green-600 text-white rounded"
-            >
-              +
-            </button>
           </div>
-        )} */}
+       
       </div>
     </Link>
   );
