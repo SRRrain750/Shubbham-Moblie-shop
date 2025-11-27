@@ -3,7 +3,7 @@ const auth = async(req,res,next)=>{
     try{
 
         //get token cookies 0r header
-        const token  = req.cookies.accessToken || req.headers?.authorization?.split(" ")[1]  ///["Bearer","" "token"]
+        const token  = req.cookies?.accessToken || req.headers?.authorization?.split(" ")[1]  ///["Bearer","" "token"]
           if(!token){
             return res.status(401).json({
                 message : " Provide token",
@@ -16,7 +16,7 @@ const auth = async(req,res,next)=>{
           const decode =  jwt.verify(token,process.env.SECRET_KEY_ACCESS_TOKEN);
           
           if(!decode){
-            return res.status(400).json({
+            return res.status(401).json({
                 message: "unauthorized access",
                 error : true,
                 success:false

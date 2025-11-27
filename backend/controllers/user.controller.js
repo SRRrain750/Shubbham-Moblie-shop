@@ -9,6 +9,7 @@ import pkg from "jsonwebtoken";
 import uploadImageCloudinary from "../utils/uploadImageClodinary.js";
 import generatedOtp from "../utils/generatedOtp.js";
 import forgotPasswordTemplate from "../utils/forgotPasswordTemplate.js";
+import auth from "../middleware/auth.js";
 
 const { verify, sign } = pkg;
 
