@@ -10,6 +10,9 @@ import Divider from '../components/Divider'
 import image1 from '../assets/minute_delivery.png'
 import image2 from '../assets/Best_Prices_Offers.png'
 import image3 from '../assets/Wide_Assortment.png'
+import { priceWithDiscount } from '../utils/PriceWithDiscount'
+import StarRating from '../components/StarRating'
+
 const ProductDisplayPage = () => {
   const params = useParams()
   let productId = params?.product?.split("-")?.slice(-1)[0]
@@ -103,19 +106,34 @@ const ProductDisplayPage = () => {
                </div>
            </div>
            <div className='p-4 lg:pl-7 text-base lg:text-lg'>
-            <p className='bg-amber-200 w-fit px-2 rounded-full'>rating</p>
+               <div className="bg-amber-200 w-fit px-2 rounded-full inline-block">
+                       <StarRating initialRating={data.rating} />
+                </div>
+
             <h2 className='text-lg font-semibold lg:text-3xl'>{data.name}</h2>
             <p className=''>{data.unit}</p>
             <Divider/>
             <div>
               <p className=''>Price</p>
-                      <div className='border border-green-600 px-4 py-2 rounded bg-green-50 w-fit'>
-                        <p className='font-semibold text-lg lg:text-xl'>{DisplayPriceInRupees(data.price)}</p>
+                     <div className='flex  items-center gap-2 lg:gap-4'>
+                       <div className='border border-green-600 px-4 py-2 rounded bg-green-50 w-fit'>
+                        <p className='font-semibold text-lg lg:text-xl'>{DisplayPriceInRupees(priceWithDiscount(data.price,data.discount))}</p>
                       </div>
+                      {
+                        data.discount && (
+                          <p className='line-through'>{DisplayPriceInRupees(data.price)}</p>
+                        )
+                      }
+                      {
+                        data.discount && (
+                          <p className='font-bold text-green-600 lg:text-2xl'>{data.discount}%<span className='text-base text-neutral-500'>Discount</span></p>
+                        )
+                      }
+                     </div>
                </div>
                {
                 data.stock === 0 ? (
-                  <p className='text-lg text-red-500'>Out Of Stock</p>
+                  <p className='text-lg text-red-500 my-2'>Out Of Stock</p>
                 )
                 :(
                   

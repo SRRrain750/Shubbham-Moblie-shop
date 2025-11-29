@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 
-const StarRating = ({ initialRating = 4.3, initialCount = 232 }) => {
+const StarRating = ({ initialRating = 0, initialCount = 0}) => {
   const [rating, setRating] = useState(initialRating);
   const [count, setCount] = useState(initialCount);
 
