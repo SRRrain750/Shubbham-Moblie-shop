@@ -7,6 +7,9 @@ import AxiosToastError from '../utils/AxiosToastError'
 import { FaAngleLeft,FaAngleRight} from 'react-icons/fa6'
 import DisplayPriceInRupees from '../utils/DisplayPriceInRupees'
 import Divider from '../components/Divider'
+import image1 from '../assets/minute_delivery.png'
+import image2 from '../assets/Best_Prices_Offers.png'
+import image3 from '../assets/Wide_Assortment.png'
 const ProductDisplayPage = () => {
   const params = useParams()
   let productId = params?.product?.split("-")?.slice(-1)[0]
@@ -49,8 +52,9 @@ const ProductDisplayPage = () => {
   }
 
     const handleScrollLeft =()=>{
-    imageContainer.current.scrollLeft += 100
+    imageContainer.current.scrollRight -= 100
   }
+  console.log("product data ",data)
   return (
          <section className='container mx-auto p-4 grid lg:grid-cols-2'>
            <div className=''>
@@ -95,11 +99,9 @@ const ProductDisplayPage = () => {
                     </button>
                   </div>
                </div>
+               <div>
+               </div>
            </div>
-
-
-
-
            <div className='p-4 lg:pl-7 text-base lg:text-lg'>
             <p className='bg-amber-200 w-fit px-2 rounded-full'>rating</p>
             <h2 className='text-lg font-semibold lg:text-3xl'>{data.name}</h2>
@@ -111,10 +113,52 @@ const ProductDisplayPage = () => {
                         <p className='font-semibold text-lg lg:text-xl'>{DisplayPriceInRupees(data.price)}</p>
                       </div>
                </div>
-
+               {
+                data.stock === 0 ? (
+                  <p className='text-lg text-red-500'>Out Of Stock</p>
+                )
+                :(
+                  
                <button className='my-4 px-4 py-1 bg-green-600 hover:bg-green-700 text-white rounded'> Add </button>
+                )
+               }
 
-               <Divider/>
+               <h2 className='font-semibold'>Why Shop From Shubham-Mobile-Shop?</h2>
+               <div>
+                        <div className='flex items-center gap-4 my-4'>
+                          <img
+                          src={image1}
+                          alt='superfast Order'
+                          className='w-20 h-20'
+                          />
+                        <div className='text-sm'>
+                          <div className='font-semibold'>SuperFast Order</div>
+                          <p>Place your order online and pick it up directly from our shop.</p>
+                        </div>
+                        </div>
+                        <div className='flex items-center gap-4 my-4'>
+                          <img
+                          src={image2}
+                          alt='Best prices offers'
+                          className='w-20 h-20'
+                          />
+                        <div className='text-sm'>
+                          <div className='font-semibold'>Best Prices & Offers</div>
+                          <p>Enjoy the best prices with offers directly from manufacturers.</p>
+                        </div>
+                        </div>
+                         <div className='flex items-center gap-4 my-4'>
+                          <img
+                          src={image3}
+                          alt='Wide Assortment'
+                          className='w-20 h-20'
+                          />
+                        <div className='text-sm'>
+                          <div className='font-semibold'>Wide Assortment</div>
+                          <p>Explore a wide assortment of mobile accessories, chargers, earphones, cases, and more.</p>
+                        </div>
+                        </div>
+               </div>
             </div>
             </section>
 

@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import Loading from '../components/Loading.jsx'
 import ProductCartAdmin from '../components/ProductCartAdmin.jsx'
 import { IoSearchOutline } from "react-icons/io5"
+import EditProductAdmin from '../components/EditProductAdmin.jsx'
 const ProductAdmin = () => {
 
       const [productData, setProductData] = useState([])
@@ -106,10 +107,10 @@ const ProductAdmin = () => {
                              {
                                  productData.map((p,index)=>{
                                    return(
-                                         <ProductCartAdmin data={p}/> 
-                              )
-                         })
-                      } 
+                                    <ProductCartAdmin data={p} fetchProductData={fetchProductData}/> 
+                                  )
+                               })
+                            } 
                         </div>
                      </div>
                     
@@ -121,8 +122,6 @@ const ProductAdmin = () => {
                    </div>
 
                </div>
-           
-
             </section>
        )
 }

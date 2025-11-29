@@ -72,7 +72,7 @@ export const getProductController = async(req, res)=>{
              }
         } : {}
 
-        const skip = (page -1) * limit
+        const skip = (page - 1) * limit
 
        const [data,totalCount] = await Promise.all([
         ProductModel.find(query).sort({createdAt : -1 }).skip(skip).limit(limit),
@@ -206,8 +206,38 @@ export const getProductDetails = async(req,res)=>{
 
 }
 
+//update product 
+export const updateProductDetails =async(req,res)=>{
+  try{
+       const { _id } = req.body
 
+       if(!_id){
+        return res.status(400).json({
+          message : "Provide product _id",
+          error : true,
+          success : false
 
+        })
+       }
+
+       const updateProduct = await ProductModel.updateOne({_id : _id},{
+        ...req.body
+       })
+
+       return res.json({
+        message : "updated SuccessFully",
+        data : updateProduct,
+        error : false,
+        success :true
+       })
+  }catch(error){
+    return res.status(500).json({
+      message : error.message || error,
+      success : true,
+      success : false
+    })
+  }
+} 
 
 
 // import ProductModel from "../models/product.model.js";
