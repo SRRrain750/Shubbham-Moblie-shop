@@ -108,6 +108,16 @@ const router = createBrowserRouter([
              }
         ]
       },
+      // {
+      //   path: "c/:category",
+      //   children: [
+      //     {
+      //       path: "s/:subCategory",
+      //       element: <ProductListPage/>
+      //     }
+      //   ]
+      // },
+
       {
         path : "product/:product",
         element :<ProductDisplayPage/>

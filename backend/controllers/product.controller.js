@@ -1,4 +1,3 @@
-import ProductModel from "../models/product.model.js";
 
 export const createProductController = async(req,res)=>{
   try{
@@ -131,7 +130,7 @@ export const  getProductByCategory = async(req,res)=>{
 
 export const  getProductByCategoryAndSubCategory=async(req,res)=>{
     try{
-          const { categoryId,subCategoryId, page,limit } = req.body
+          const { categoryId,subCategoryId, page,limit } = req.body;
 
           if(!categoryId || !subCategoryId){
             return res.status(400).json({
@@ -142,6 +141,9 @@ export const  getProductByCategoryAndSubCategory=async(req,res)=>{
           }
 
 
+          
+          // page = page ? Number(page) : 1;
+          // limit = limit ? Number(limit) : 10;
           if(!page){
              page = 1
           }
@@ -151,8 +153,8 @@ export const  getProductByCategoryAndSubCategory=async(req,res)=>{
           }
 
           const query = {
-            category : { $in : categoryId},
-            subCategory : { $in : subCategoryId }
+            category : { $in : (categoryId)},
+            subCategory : { $in :(subCategoryId)}
             
           }
 

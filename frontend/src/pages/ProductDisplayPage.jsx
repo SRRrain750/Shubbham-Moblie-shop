@@ -104,6 +104,26 @@ const ProductDisplayPage = () => {
                </div>
                <div>
                </div>
+               <div className='my-4 grid gap-3'>
+               <div>
+                 <p className='font-semibold'>Description</p>
+                <p className='text-base'>{data.description}</p>
+               </div>
+                 <div>
+                 <p className='font-semibold'>Unit</p>
+                <p className='text-base'>{data.unit}</p>
+               </div>
+               {
+                data?.more_details && Object.keys(data?.more_details).map((element,index)=>{
+                  return(
+                     <div>
+                            <p className='font-semibold'>{element}</p>
+                            <p className='text-base'>{data?.more_details[element]}</p>
+                     </div>
+                  )
+                })
+               }
+               </div>
            </div>
            <div className='p-4 lg:pl-7 text-base lg:text-lg'>
                <div className="bg-amber-200 w-fit px-2 rounded-full inline-block">

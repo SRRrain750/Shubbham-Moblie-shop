@@ -1,17 +1,21 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import AxiosToastError from '../utils/AxiosToastError'
 import Axios from '../utils/Axios'
 import SummaryApi from '../common/SummaryApi'
-import { useState } from 'react'
 import CardLoading from './CardLoading'
 import CardProduct from './CardProduct'
 import { FaAngleLeft,FaAngleRight, } from "react-icons/fa6";
+import { useSelector } from 'react-redux'
+import { validURLConvert } from '../utils/validURLConvert'
 
 const CategoryWiseProductDisplay = ({id,name}) => {
     const [data,setData] = useState([])
     const [loading, setLoading] = useState(false)
-    const containerRef = useRef()
+    const containerRef = useRef()  
+    const subCategoryData = useSelector(state => state.product.allSubCategory)
+    const loadingCardNumber = new Array(6).fill(null)
+
     const fetchCategoryWiseProduct = async()=>{
         
         try {
@@ -27,8 +31,6 @@ const CategoryWiseProductDisplay = ({id,name}) => {
                if(responseData.success){
                    setData(responseData.data)
                }
-                console.log(responseData)
-
         }catch(error){
            AxiosToastError(error)
         }finally{
@@ -47,12 +49,27 @@ const CategoryWiseProductDisplay = ({id,name}) => {
      const handleScrollLeft = ()=>{
       containerRef.current.scrollLeft -= 200
     }
-  const loadingCardNumber = new Array(6).fill(null)
+
+
+  const handleRedirectProductListPage = () => {
+    console.log(name,id)
+    const subcategory = subCategoryData.find(sub => {
+      const filterData = sub.category.some(c => {
+         return c._id == id
+      })
+      return filterData ? true : null
+    })
+
+    const url = `/${validURLConvert(name)}-${id}/${validURLConvert(subcategory?.name)}-${subcategory?._id}`
+    return url
+  }
+
+  const redirectURL = handleRedirectProductListPage()
   return (
       <div>
             <div className='container mx-auto p-4 flex items-center justify-between gap-4'>
                 <h3 className='font-semibold text-lg md:text-xl'> {name} </h3>
-                  <Link to="" className='text-green-600 hover:text-green-400'>See All</Link>
+                  <Link to={redirectURL} className='text-green-600 hover:text-green-400'>See All</Link>
              </div>
       
          <div className='relative flex items-center'>
