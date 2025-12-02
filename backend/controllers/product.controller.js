@@ -1,4 +1,4 @@
-
+import ProductModel from "../models/product.model.js"
 export const createProductController = async(req,res)=>{
   try{
      const{ 
@@ -74,7 +74,10 @@ export const getProductController = async(req, res)=>{
         const skip = (page - 1) * limit
 
        const [data,totalCount] = await Promise.all([
-        ProductModel.find(query).sort({createdAt : -1 }).skip(skip).limit(limit),
+        ProductModel.find(query).sort({createdAt : -1 }).skip(skip).limit(limit)
+        .populate("category")
+        .populate("subCategory"),
+
         ProductModel.countDocuments(query)  
        ])
        return res.json({
@@ -140,10 +143,6 @@ export const  getProductByCategoryAndSubCategory=async(req,res)=>{
             })
           }
 
-
-          
-          // page = page ? Number(page) : 1;
-          // limit = limit ? Number(limit) : 10;
           if(!page){
              page = 1
           }
@@ -270,6 +269,65 @@ export const deleteProductDetails = async(req,res)=>{
     })
   }
 }
+
+
+//search Product
+export const searchProduct =async(req,res)=>{
+  try{
+      let { search,page,limit} = req.body
+
+      if(!page){
+        page = 1
+      }
+      if(!limit){
+        limit = 10
+      }
+
+      const query =search ? {
+        $text : {
+          $search:search
+        }
+        
+      }:{}
+
+      const skip = (page - 1)*limit
+
+      const [data, dataCount] = await Promise.all([
+        ProductModel.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit)
+        .populate("category")
+        .populate("subCategory"),
+        ProductModel.countDocuments(query)
+      ])
+
+      return res.json({
+        message : "Product data",
+        error : false,
+        success : true,
+        data : data,
+        totalCount : dataCount,
+        totalPage : Math.ceil(dataCount/limit),
+        page : page,
+        limit : limit
+      })
+  }catch(error){
+     return res.status(500).json({
+         message : error.message || error,
+         error : true,
+         success : false
+     })
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
 // import ProductModel from "../models/product.model.js";
 
 // export const createProductController = async(request,response)=>{

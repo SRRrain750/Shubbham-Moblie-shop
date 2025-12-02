@@ -12,18 +12,18 @@ const productSchema = new mongoose.Schema({
         },
         category :[
              {
-            type : mongoose.Schema.ObjectId,
-             ref:'category'
+                type : mongoose.Schema.ObjectId,
+                ref:'category'
         }
     ],
         subCategory: [{
               type : mongoose.Schema.ObjectId,
-             ref:'subcategory'
+             ref:'subCategory'
         }
     ],
         unit:{
             type : String,
-            default:""
+            default : ""
     
         },
         stock:{

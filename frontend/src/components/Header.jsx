@@ -18,7 +18,11 @@ const Header = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const [openUserMenu, setOpenUserMenu] = useState(false);
-  console.log("user from  store", user);
+
+  console.log()
+  
+  
+  //console.log("user from  store", user);
   // console.log("location", location);
   // console.log("ismobile", isMobile);
   // console.log("isSearchPage", isSearchPage);

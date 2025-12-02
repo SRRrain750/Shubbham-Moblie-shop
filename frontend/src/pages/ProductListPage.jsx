@@ -13,10 +13,11 @@ const ProductListPage = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [totalPage, setTotalPage] = useState(1);
-
   const params = useParams();
   const AllSubCategory = useSelector((state) => state.product.allSubCategory);
-  const [DisplaySubCatory, setDisplaySubCategory] = useState([]);
+  const [DisplaySubCategory, setDisplaySubCategory] = useState([]);
+
+  console.log(AllSubCategory)
 
   const subCategory = params?.subCategory?.split("-");
   const subCategoryName = subCategory?.slice(0, subCategory?.length - 1)?.join(" ");
@@ -24,15 +25,15 @@ const ProductListPage = () => {
   const categoryId = params.category?.split("-").slice(-1)[0];
   const subCategoryId = params.subCategory?.split("-").slice(-1)[0];
 
-  const fetchProductdata = async () => {
+  const fetchProductdata = async (reset=false) => {
     try {
       setLoading(true);
       const response = await Axios({
         ...SummaryApi.getProductByCategoryAndSubCategory,
         data: {
           categoryId: categoryId,
-          subCategoryId: subCategoryId,
-          page: page,
+          subCategoryId : subCategoryId,
+          page: reset ? 1: page,
           limit: 8,
         },
       });
@@ -62,9 +63,12 @@ const ProductListPage = () => {
   }, [params]);
 
   useEffect(() => {
-    const sub = AllSubCategory.filter((s) =>
-      s.category.some((el) => el._id == categoryId)
-    );
+    const sub = AllSubCategory.filter(s =>{
+     const filterData= s.category.some(el=>{
+      return el._id == categoryId
+  })
+   return filterData
+ })
 
     setDisplaySubCategory(sub);
   }, [params, AllSubCategory]);
@@ -77,10 +81,9 @@ const ProductListPage = () => {
 
         {/* ------------ LEFT SIDEBAR (vertical scroll) ------------ */}
         <div className="w-[90px] md:w-[200px] lg:w-[260px] h-[85vh] overflow-y-auto bg-white shadow-md p-2 scrollbarCustom">
-          {DisplaySubCatory.map((s, index) => {
+          {DisplaySubCategory.map((s, index) => {
             const link = `/${validURLConvert(s?.category[0]?.name)}-${
-              s?.category[0]?._id
-            }/${validURLConvert(s.name)}-${s._id}`;
+              s?.category[0]?._id }/${validURLConvert(s.name)}-${s._id}`;
 
             return (
               <Link

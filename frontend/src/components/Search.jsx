@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { FaArrowLeft } from "react-icons/fa";
 import useMobile from '../hooks/useMobile';
+import { Navigate } from 'react-router-dom';
 
 
 const Search = () => {
@@ -14,17 +15,27 @@ const Search = () => {
   const location = useLocation();
   const [isSearchPage, setIsSearchPage] = useState(false)
   const isMobile = useMobile();
+  const params =useLocation()
+  const searchText = params.search.slice(3)
 
   useEffect(() => {
     const isSearch = location.pathname === "/search"
     setIsSearchPage(isSearch)
   }, [location])
 
-  const redirectToSearchPage = () => {
+  const redirectToSearchPage = (e) => {
     navigate('/search');
   }
 
   console.log("search", isSearchPage);
+
+  const handleOnChange = (e)=>{
+    const value = e.target.value                
+
+    const url = `/search?q=${value}`
+    navigate(url)
+    
+  }
 
   return (
     <div className='w-full min-w-[320px] lg:min-w-[420px] h-11 lg:h-12 rounded-lg border border-neutral-300 overflow-hidden flex items-center px-1 bg-slate-50 group focus-within:border-primary-200'>
@@ -61,12 +72,14 @@ const Search = () => {
               />
             </div>
           ) : (
-            <div>
+            <div className=''>
               <input
                 type="text"
                 placeholder='Search...'
                 autoFocus
                 className='w-full bg-transparent outline-none focus:outline-none text-sm text-neutral-600 placeholder:text-neutral-400'
+                defaultValue={searchText}
+                onChange={handleOnChange}
               />
             </div>
           )

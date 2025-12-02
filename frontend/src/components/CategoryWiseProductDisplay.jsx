@@ -42,11 +42,11 @@ const CategoryWiseProductDisplay = ({id,name}) => {
         fetchCategoryWiseProduct()
     },[])
 
-    const handleScrollRight = ()=>{
+    const handleScrollRight = () => {
       containerRef.current.scrollLeft += 200
     }
 
-     const handleScrollLeft = ()=>{
+     const handleScrollLeft = () => {
       containerRef.current.scrollLeft -= 200
     }
 
@@ -61,6 +61,7 @@ const CategoryWiseProductDisplay = ({id,name}) => {
     })
 
     const url = `/${validURLConvert(name)}-${id}/${validURLConvert(subcategory?.name)}-${subcategory?._id}`
+    
     return url
   }
 
@@ -74,9 +75,9 @@ const CategoryWiseProductDisplay = ({id,name}) => {
       
          <div className='relative flex items-center'>
                <div className='flex  gap-4 md:gap-6 lg:gap-8 container mx-auto px-4  overflow-x-scroll scrollbar-none scroll-smooth' ref={containerRef}>
-         {
+          {
             loading && 
-            loadingCardNumber.map((_,index)=>{
+            loadingCardNumber.map((_, index)=>{
                  return(
                     <CardLoading key={"CategoryWiseProductDisplay123"+index}/>
                  )
