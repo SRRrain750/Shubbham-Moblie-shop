@@ -11,6 +11,8 @@ import { setAllCategory , setAllSubCategory,setLoadingCategory} from './store/pr
 import { useDispatch } from 'react-redux'
 import Axios from './utils/Axios.js'
 import SummaryApi from './common/SummaryApi.js'
+import { handleAddItemCart } from './store/cartProduct.js'
+import GlobalProvider from './provider/GlobalProvider.jsx'
 
 
 function App() {
@@ -66,18 +68,18 @@ function App() {
     fetchUser();
     fetchCategory();
     fetchSubCategory();
-
+    //fetchCartItem();
   }, []);
 
   return (
-    <>
+    <GlobalProvider>
       <Header />
       <Toaster position="top-center" reverseOrder={false} />
       <main className='min-h-[75vh]'>
         <Outlet />
       </main>
       <Footer />
-    </>
+    </GlobalProvider>
   );
 }
 

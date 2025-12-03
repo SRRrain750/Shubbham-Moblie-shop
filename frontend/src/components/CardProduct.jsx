@@ -4,9 +4,12 @@ import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { validURLConvert } from "../utils/validURLConvert";
 import { priceWithDiscount } from "../utils/PriceWithDiscount";
-const CardProduct = ({ data }) => {
- // const [qty, setQty] = useState(0);
+import AddToCartButton from "./AddToCartButton";
 
+const CardProduct = ({ data }) => {
+  const url = `/product/${validURLConvert(data.name)}-${data._id}`
+  const [loading ,setLoading]=useState(false)
+ 
    const ratingStars = Array.from({ length: 5 }, (_, i) => (
     <FaStar
       key={i}
@@ -14,7 +17,7 @@ const CardProduct = ({ data }) => {
     />
   ));
     
-  const url = `/product/${validURLConvert(data.name)}-${data._id}`
+  
 
   return (
     <Link to={url} className="border py-2 lg:p-4 grid  gap-1 lg:gap-3 min-w-36  lg:min-w-52 rounded  cursor-pointer bg-white">
@@ -59,9 +62,7 @@ const CardProduct = ({ data }) => {
           data.stock == 0 ? (
             <p className="text-red-500 text-sm  text-center">Out of stock</p>
           ) :(
-          <button className="bg-green-600 hover:bg-green-700 text-white px-2 lg:px-4 py-1 rounded">
-               Add
-          </button>
+         <AddToCartButton data= {data}/>
           )
         }
           

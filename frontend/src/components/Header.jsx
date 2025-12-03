@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import logo from '../assets/logo.svg'
 import Search from './Search.jsx'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate,useLocation } from 'react-router-dom'
 import { FaRegCircleUser } from "react-icons/fa6";
 import useMobile from '../hooks/useMobile.jsx';
-import { useLocation } from 'react-router-dom';
 import { MdShoppingCartCheckout } from "react-icons/md";
-import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { GoTriangleUp, GoTriangleDown } from "react-icons/go";
 import UserMenu from './UserMenu.jsx';
+import { useEffect } from 'react';
+import DisplayPriceInRupees from '../utils/DisplayPriceInRupees.js';
+import { current } from '@reduxjs/toolkit';
 
 const Header = () => {
   const { isMobile } = useMobile();  // ✅ sahi tarika
@@ -18,15 +19,9 @@ const Header = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const [openUserMenu, setOpenUserMenu] = useState(false);
-
-  console.log()
-  
-  
-  //console.log("user from  store", user);
-  // console.log("location", location);
-  // console.log("ismobile", isMobile);
-  // console.log("isSearchPage", isSearchPage);
-
+  const cartItem = useSelector(state => state.cartItem.cart)
+  const [totalPrice,setTotalPrice] =useState(0)
+  const[totalQty,setTotalQty] = useState(0)
   const redirectToLoginPage = () => {
     navigate('/Login');
   }
@@ -43,6 +38,20 @@ const Header = () => {
 
     navigate("/user");
   }
+
+  //total Items &  total Price
+  useEffect(()=>{
+       const qty = cartItem.reduce((preve,curr)=>{
+        return preve + curr.quantity
+       },0)
+       setTotalQty(qty)
+       
+       const  tPrice = cartItem.reduce((preve,curr)=>{
+        return preve + (curr.productId.price * curr.quantity)
+       },0)
+       setTotalPrice(tPrice)
+       
+  },[cartItem])
 
   return (
     <header className=' h-28 lg:h-20 lg:shadow-md sticky top-0 z-40  flex flex-col justify-center gap-1 bg-white'>
@@ -128,10 +137,19 @@ const Header = () => {
                     <MdShoppingCartCheckout size={25} />
 
                   </div>
-
-                  <div>
-                    My Cart
-                  </div>
+                   <div>
+                    {
+                      cartItem[0]?(
+                        <div>
+                             <p>{totalQty} Items</p>
+                             <p>{DisplayPriceInRupees(totalPrice)}</p>
+                        </div>
+                      ):(
+                      <p> My Cart</p>
+                      )
+                    }
+                   </div>
+                  
 
                 </button>
               </div>
@@ -151,4 +169,3 @@ const Header = () => {
 }
 
 export default Header
-Header
