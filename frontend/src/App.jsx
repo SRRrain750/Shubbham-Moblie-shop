@@ -13,11 +13,10 @@ import Axios from './utils/Axios.js'
 import SummaryApi from './common/SummaryApi.js'
 import { handleAddItemCart } from './store/cartProduct.js'
 import GlobalProvider from './provider/GlobalProvider.jsx'
-
-
+import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 function App() {
   const dispatch = useDispatch();
-
+  
   const fetchUser = async () => {
     const userData = await fetchUserDetails();
     dispatch(setUserDetails(userData.data)); // ✅ use the correct action
@@ -79,9 +78,12 @@ function App() {
         <Outlet />
       </main>
       <Footer />
+      <Toaster/>
+      <CartMobileLink/>
     </GlobalProvider>
   );
 }
+import CartMobileLink from './components/CartMobile.jsx'
 
 export default App;
 

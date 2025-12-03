@@ -16,7 +16,6 @@ const AddToCartButton = ({ data }) => {
      const [qty,setQty]=useState(0)
      const [ cartItemDetails, setCartItemDetails] = useState()
 
-     console.log("addTocartButton",cartItem)
 
      const handleAddToCart = async(e)=>{
         e.preventDefault()
@@ -28,7 +27,7 @@ const AddToCartButton = ({ data }) => {
              const response = await Axios({
                 ...SummaryApi.addToCart,
                 data : {
-                 productId : data?._id
+                   productId : data?._id
                 }
              })
     
@@ -59,23 +58,30 @@ const AddToCartButton = ({ data }) => {
 
      },[data,cartItem])
 
-     const increaseQty =async(e)=>{
+     const increaseQty = async(e)=>{
         e.preventDefault()
         e.stopPropagation()
 
-        updateCartItem(cartItemDetails?._id, qty + 1);
+      const response = await updateCartItem(cartItemDetails?._id, qty + 1);
+
+       if(response.success){
+        toast.success("Item added")
+       }
 
      }
 
-     const decreaseQty =async(e)=>{
+     const decreaseQty = async(e)=>{
         e.preventDefault()
         e.stopPropagation()
 
         if(qty===1){
           deleteCartItem(cartItemDetails?._id)
         }else{
-          
-          updateCartItem(cartItemDetails?._id, qty - 1);
+          const response = await updateCartItem(cartItemDetails?._id, qty - 1);
+
+            if(response.success){
+               toast.success("Item remove")
+              }
         }
         
      }
@@ -83,10 +89,12 @@ const AddToCartButton = ({ data }) => {
     <div className='w-full max-w-[150px]'>
         {
             isAvailableCart ? (
-                <div className='flex'>
-                    <button onClick={decreaseQty} className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full p-1 rounded'><FaMinus/></button>
-                    <p className='flex-1 w-full font-semibold p-1'>{qty}</p>
-                    <button onClick={increaseQty} className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full p-1 rounded'><FaPlus></FaPlus></button>
+                <div className='flex w-full h-full'>
+                    <button onClick={decreaseQty} className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full p-1 rounded flex items-center justify-center'><FaMinus/></button>
+
+                    <p className='flex-1 w-full font-semibold p-1  flex items-center justify-center'>{qty}</p>
+
+                    <button onClick={increaseQty} className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full p-1 rounded  flex items-center justify-center'><FaPlus></FaPlus></button>
                 </div>
             ) :(
                  <button onClick={handleAddToCart} className="bg-green-600 hover:bg-green-700 text-white px-2 lg:px-4 py-1 rounded">

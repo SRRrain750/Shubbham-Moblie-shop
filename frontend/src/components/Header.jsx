@@ -11,6 +11,8 @@ import UserMenu from './UserMenu.jsx';
 import { useEffect } from 'react';
 import DisplayPriceInRupees from '../utils/DisplayPriceInRupees.js';
 import { current } from '@reduxjs/toolkit';
+import { useGlobalContext } from '../provider/GlobalProvider.jsx';
+import DisplayCartItem from './DisplayCartItem.jsx';
 
 const Header = () => {
   const { isMobile } = useMobile();  // ✅ sahi tarika
@@ -20,8 +22,10 @@ const Header = () => {
   const user = useSelector((state) => state.user);
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const cartItem = useSelector(state => state.cartItem.cart)
-  const [totalPrice,setTotalPrice] =useState(0)
-  const[totalQty,setTotalQty] = useState(0)
+  // const [totalPrice,setTotalPrice] =useState(0)
+  // const[totalQty,setTotalQty] = useState(0)
+  const {  totalPrice, totalQty } = useGlobalContext()
+  const [ openCartSection, setOpenCartSection] = useState(false)
   const redirectToLoginPage = () => {
     navigate('/Login');
   }
@@ -40,18 +44,18 @@ const Header = () => {
   }
 
   //total Items &  total Price
-  useEffect(()=>{
-       const qty = cartItem.reduce((preve,curr)=>{
-        return preve + curr.quantity
-       },0)
-       setTotalQty(qty)
+  // useEffect(()=>{
+  //      const qty = cartItem.reduce((preve,curr)=>{
+  //       return preve + curr.quantity
+  //      },0)
+  //      setTotalQty(qty)
        
-       const  tPrice = cartItem.reduce((preve,curr)=>{
-        return preve + (curr.productId.price * curr.quantity)
-       },0)
-       setTotalPrice(tPrice)
+  //      const  tPrice = cartItem.reduce((preve,curr)=>{
+  //       return preve + (curr.productId.price * curr.quantity)
+  //      },0)
+  //      setTotalPrice(tPrice)
        
-  },[cartItem])
+  // },[cartItem])
 
   return (
     <header className=' h-28 lg:h-20 lg:shadow-md sticky top-0 z-40  flex flex-col justify-center gap-1 bg-white'>
@@ -131,13 +135,13 @@ const Header = () => {
                 }
 
 
-                <button className='flex items-center gap-2 bg-green-700 hover:bg-green-800 px-3 py-3 rounded text-white'>
+                <button onClick={()=>setOpenCartSection(true)} className='flex items-center gap-2 bg-green-800 hover:bg-green-700 px-3 py-2 rounded text-white'>
                   <div className='animate-bounce'>
                     {/* add to cart icone */}
                     <MdShoppingCartCheckout size={25} />
 
                   </div>
-                   <div>
+                   <div className='font-semibold text-sm'>
                     {
                       cartItem[0]?(
                         <div>
@@ -164,6 +168,11 @@ const Header = () => {
       <div className='container mx-auto px-2 lg:hidden'>
         <Search />
       </div>
+      {
+        openCartSection && (
+          <DisplayCartItem close={()=>setOpenCartSection(false)}/>
+        )
+      }
     </header>
   )
 }
