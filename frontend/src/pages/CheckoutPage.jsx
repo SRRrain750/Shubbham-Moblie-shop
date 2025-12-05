@@ -7,31 +7,47 @@ import { useSelector } from 'react-redux'
 const CheckoutPage = () => {
 
      const { notDiscountTotalPrice, totalPrice,totalQty } = useGlobalContext()
-     const  [openAddress, setOpenAddress] = useState(false)
+     const [ openAddress, setOpenAddress] = useState(false)
      const addressList = useSelector(state => state.addresses.addressList)
+     const [ selectAddress, setSelectAddress ] = useState(0)
 
-     console.log("addressList",addressList)
+     console.log(addressList[selectAddress])
   return (
     <section className='bg-blue-50 '>
         <div className='container mx-auto p-4 flex flex-col lg:flex-row w-full  gap-5 justify-between'>
             <div className='w-full'>
                 {/** address */}
                <h3 className=' text-lg font-semibold'> Choose your address </h3>
-               <div>
+               <div className='bg-white p-2 grid gap-4'>
                 {
                   addressList .map((address,index)=>{
                     return(
-                      <div key={address._id || index}>
-                        <p>{address.address_line}</p>
+                      <label htmlFor= {"address" + index} className={ `!address.status && " hidden"`}>
+                      <div className='border rounded p-3 flex gap-3 hover:bg-blue-50'>
+                        <div>
+                           <input id={"address" + index} type='radio' value={index}  onChange={(e)=> setSelectAddress(e.target.value)} name='address'
+                           />
+                        </div>
+
+                    <div>
+                         <p>{address.address_line}</p>
+                        <p>{address.city}</p>
+                        <p>{address.state}</p>
+                        <p>{address.country} - {address.pincode}</p>
+                        <p>{address.mobile}</p>
+                    </div>
+                        
                       </div>
+                      </label>
                     )
                   })
                 }
-               </div>
-                 
+                    
                <div onClick={()=>setOpenAddress(true)} className='h-16 bg-blue-50 border-2  border-dashed flex justify-center items-center  cursor-pointer'>
-                Add address
+                     Add address
                </div>
+              </div>
+             
             </div>
 
             <div className='w-full mx-w-md bg-white py-4 px-2'>

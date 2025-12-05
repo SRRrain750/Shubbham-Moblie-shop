@@ -60,7 +60,7 @@ const GlobalProvider = ({children}) => {
         return responseData
       }
     }catch(error){
-      AxiosToastError(error)
+     // AxiosToastError(error)
       return error
     }
   }

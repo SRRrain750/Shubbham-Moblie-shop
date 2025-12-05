@@ -1,3 +1,4 @@
+import { data } from "react-router";
 import AddressModel from "../models/address.model.js";
 import UserModel from "../models/user.model.js"
 
@@ -46,7 +47,7 @@ export const getAddressController = async(req,res)=>{
     try{
         const userId = req. userId
 
-        const data = await AddressModel.find({ userId : userId})
+        const data = await AddressModel.find({ userId : userId }).sort({ createAt  : -1})
 
         return res.json({
             data : data,
@@ -61,6 +62,64 @@ export const getAddressController = async(req,res)=>{
             error : true,
             success : false 
 
+        })
+    }
+}
+
+
+
+export const updateAddressController = async(req,res)=>{
+
+    try{
+
+        const userId = req.userId
+        const { _id,address_line,city,state,country,pincode,mobile}=req.body
+
+        const updateAddress = await AddressModel.updateOne({ _id : _id, userId : userId},{
+            address_line,
+            city,
+            state,
+            country,
+            pincode,
+            mobile
+        })
+        return res.json({
+            message : "Address Updated",
+            error : false,
+            success : true,
+            data: updateAddress
+        })
+    }catch(error){
+        return res.status(500).json({
+            message : error.message || error,
+            error : true,
+            success : false
+        })
+    }
+}
+
+export const deleteAddressController = async(req,res)=>{
+    try{
+         const userId = req.userId//middleware
+         const { _id } = req.body
+
+         const disableAddress = await AddressModel.updateOne({ _id : _id, userId},{
+            status : false
+         })
+
+         return res.json({
+            message : "Address remove",
+            error : false,
+            success : true,
+            data : disableAddress
+         })
+
+    }catch(error){
+       
+        return res.status(500).json({
+            message : error.message || error,
+            error : true,
+            success : false
         })
     }
 }
