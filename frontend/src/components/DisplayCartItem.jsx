@@ -1,6 +1,6 @@
 import React from 'react'
 import { IoClose } from 'react-icons/io5'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { useGlobalContext } from '../provider/GlobalProvider'
 import DisplayPriceInRupees from '../utils/DisplayPriceInRupees'
 import { FaCaretRight } from 'react-icons/fa'
@@ -13,9 +13,22 @@ const DisplayCartItem = ({close}) => {
 
    const { notDiscountTotalPrice, totalPrice,totalQty } = useGlobalContext() 
    const cartItem = useSelector(state => state.cartItem.cart)
+   const user = useSelector(state => state.user)
+   const navigate = useNavigate()
+
+   const redirectToCheckoutPage = () =>{
+        if(user?._id){
+           navigate("/checkout")
+           if(close){
+             close()
+           }
+           return
+        }
+        toast("Please Login")
+   }
 
   return (
-     <section className=' fixed top-0 bottom-0 right-0 left-0  z-50'>
+     <section className=' bg-neutral-900 fixed top-0 bottom-0 right-0 left-0  bg-opacity-70 z-50'>
           <div className='bg-white w-full max-w-sm min-h-screen max-h-screen ml-auto'>
                  <div className='flex items-center p-4 shadow-md gap-3 justify-between'>
                   <h2 className='font-semibold '>Cart</h2>
@@ -44,7 +57,7 @@ const DisplayCartItem = ({close}) => {
                               cartItem[0] &&  (
                                cartItem.map((item,index)=>{
                              return(
-                              <div className='flex w-full gap-4'>
+                              <div key={item?._id+"cartItemDisplay"} className='flex w-full gap-4'>
                                 <div className='w-18 h-20 min-w-18 min-h-20  border rounded overflow-hidden bg-white '>
                                   <img
                                     src={item?.productId?.image[0]}
@@ -79,7 +92,6 @@ const DisplayCartItem = ({close}) => {
                               <p>Grand total</p>
                               <p>{DisplayPriceInRupees(totalPrice)}</p>
                             </div>
-
                        </div>
                        </>
                       ) : (
@@ -105,7 +117,8 @@ const DisplayCartItem = ({close}) => {
                         <div>
                           {DisplayPriceInRupees(totalPrice)}
                         </div>
-                        <button  className='flex items-center gap-1 '>
+                     
+                        <button onClick={redirectToCheckoutPage} className='flex items-center gap-1 '>
                            Proceed
                           <span><FaCaretRight/></span>
                         </button>

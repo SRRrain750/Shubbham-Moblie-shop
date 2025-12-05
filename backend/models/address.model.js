@@ -2,29 +2,27 @@ import mongoose  from "mongoose";
 
 const addressSchema = new mongoose.Schema({
          address_line:{
-                type:String,
+                type : String,
                 default : ""
             },
             city:{
                 type : String,
-                default:""
+                default : ""
             },
             state: {
                 type : String,
-                default:""
+                default : ""
         
             },
             pincode: {
-                type:String,
+                type : String,
                 
             },
             country:{
                 type : String,
-                
-        
             },
             mobile:{
-                type:Number,
+                type : Number,
                 default : null
             },
             status:{
@@ -32,8 +30,10 @@ const addressSchema = new mongoose.Schema({
                 default:true
             },
              userId : {
-             type : mongoose.Schema.ObjectId,
-             default : ""
+                 type : mongoose.Schema.ObjectId,
+                //   required : true,
+                //   ref : "User"
+                default : ""
             }
         },{
             timestamps : true
@@ -44,3 +44,45 @@ const addressSchema = new mongoose.Schema({
 
  export default  AddressModel
             
+
+
+//  import mongoose from "mongoose";
+
+// const addressSchema = new mongoose.Schema({
+//     address_line : {
+//         type : String,
+//         default : ""
+//     },
+//     city : {
+//         type : String,
+//         default : ""
+//     },
+//     state : {
+//         type : String,
+//         default : ""
+//     },
+//     pincode : {
+//         type : String
+//     },
+//     country : {
+//         type : String
+//     },
+//     mobile : {
+//         type : Number,
+//         default : null
+//     },
+//     status : {
+//         type : Boolean,
+//         default : true
+//     },
+//     userId : {
+//         type : mongoose.Schema.ObjectId,
+//         default : ""
+//     }
+// },{
+//     timestamps : true
+// })
+
+// const AddressModel = mongoose.model('address',addressSchema)
+
+// export default AddressModel

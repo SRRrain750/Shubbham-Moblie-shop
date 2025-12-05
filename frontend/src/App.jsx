@@ -1,10 +1,9 @@
-// App.jsx
 import './App.css'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import React, { useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import fetchUserDetails from './utils/fetchUserDetails.js'
 import { setUserDetails } from './store/userSlice.js' // ✅ correct import
 import { setAllCategory , setAllSubCategory,setLoadingCategory} from './store/productSlice.js'
@@ -14,23 +13,26 @@ import SummaryApi from './common/SummaryApi.js'
 import { handleAddItemCart } from './store/cartProduct.js'
 import GlobalProvider from './provider/GlobalProvider.jsx'
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
+import CartMobileLink from './components/CartMobile.jsx'
+
 function App() {
   const dispatch = useDispatch();
+  const location = useLocation()
   
   const fetchUser = async () => {
+    
     const userData = await fetchUserDetails();
     dispatch(setUserDetails(userData.data)); // ✅ use the correct action
   };
    const fetchCategory =async()=>{
               try{
                     dispatch(setLoadingCategory(true))
-                    const response =await Axios({
+                    const response = await Axios({
                       ...SummaryApi.getCategory
                     })
-                    const { data : responseData } =response
+                    const { data : responseData } = response
 
                     if(responseData.success){
-                      
                       dispatch(setAllCategory(responseData.data))
                       //setCategoryData(responseData.data) 
                     }
@@ -48,7 +50,7 @@ function App() {
                     const response =await Axios({
                       ...SummaryApi.getSubCategory
                     })
-                    const { data : responseData } =response
+                    const { data : responseData } = response
 
                     if(responseData.success){
                       
@@ -70,6 +72,7 @@ function App() {
     //fetchCartItem();
   }, []);
 
+  console.log()             
   return (
     <GlobalProvider>
       <Header />
@@ -79,11 +82,15 @@ function App() {
       </main>
       <Footer />
       <Toaster/>
-      <CartMobileLink/>
+      {
+        location.pathname === '/checkout' && (
+          <CartMobileLink/>
+        )
+      }
     </GlobalProvider>
   );
 }
-import CartMobileLink from './components/CartMobile.jsx'
+
 
 export default App;
 

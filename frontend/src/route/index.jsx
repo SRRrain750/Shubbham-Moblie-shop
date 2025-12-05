@@ -23,6 +23,7 @@ import AdminPermission from "../layouts/AdminPermission.jsx";
 import ProductListPage from "../pages/ProductListPage.jsx";
 import ProductDisplayPage from "../pages/ProductDisplayPage.jsx";
 import CartMobile from "../pages/CartMobile.jsx";
+import CheckoutPage from "../pages/CheckoutPage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -127,6 +128,10 @@ const router = createBrowserRouter([
         path : "cart",
         element : <CartMobile/>
 
+      },
+      {
+        path : "checkout",
+        element : <CheckoutPage/>
       }
 
     ]
