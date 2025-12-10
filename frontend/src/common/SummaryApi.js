@@ -148,8 +148,12 @@ const SummaryApi = {
     disableAddress : {
       url : '/api/address/disable',
       method : 'delete'
-    }
-    
+    },
+    cashOnDeliveryOrder : {
+      url : `${baseUrl}/api/order/cash-on-delivery`,
+      method : 'post'
+}
+
 };
 
 export default SummaryApi;
