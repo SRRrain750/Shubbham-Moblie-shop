@@ -1,4 +1,4 @@
-import { data } from "react-router";
+//import { data } from "react-router";
 import AddressModel from "../models/address.model.js";
 import UserModel from "../models/user.model.js"
 
@@ -45,7 +45,7 @@ export const addAddressController =async(req,res)=>{
 
 export const getAddressController = async(req,res)=>{
     try{
-        const userId = req. userId
+        const userId = req.userId
 
         const data = await AddressModel.find({ userId : userId }).sort({ createAt  : -1})
 
