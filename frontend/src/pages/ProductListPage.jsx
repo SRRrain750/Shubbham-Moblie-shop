@@ -30,7 +30,7 @@ const ProductListPage = () => {
       setLoading(true);
       const response = await Axios({
         ...SummaryApi.getProductByCategoryAndSubCategory,
-        data: {
+         data: {
           categoryId: categoryId,
           subCategoryId : subCategoryId,
           page: reset ? 1: page,

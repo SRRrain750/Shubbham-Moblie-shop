@@ -164,8 +164,8 @@ useEffect(()=>{
           fetchAddress,
           totalPrice,
           totalQty,
-          notDiscountTotalPrice
-
+          notDiscountTotalPrice,
+          fetchOrder
           }}>
             {children}
         </GlobalContext.Provider>
