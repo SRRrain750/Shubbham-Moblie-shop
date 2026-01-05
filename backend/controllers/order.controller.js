@@ -3,11 +3,10 @@ import OrderModel from "../models/order.model.js"
 import UserModel from "../models/user.model.js"
 import mongoose from "mongoose"
 
- export const  CashOnDeliveryOrderController=async(req,res)=>{
+ export const  CashOnDeliveryOrderController = async(req,res)=>{
     try{
 
         const userId = req.userId // auth middleware
-
         const { list_items, totalAmt, addressId, subTotalAmt } = req.body
 
         const payload = list_items.map(el=>{
@@ -17,8 +16,9 @@ import mongoose from "mongoose"
                 orderId : `ORD-${new mongoose.Types.ObjectId()}`,
                 productId : el.productId._id,
                 product_details : {
-                    name : el.productId.name,
+                    name :  el.productId.name,
                     image : el.productId.image,
+                    price : el.productId.price
                 },
                 paymentId : "",
                 payment_Status : "CASH ON DELIVERY",
@@ -38,7 +38,7 @@ import mongoose from "mongoose"
             const updateInUser = await UserModel.updateOne({ _id : userId },{ shopping_cart : []})
 
             return res.json({
-                message : "Order successfully",
+                message : "Order placed  successfully",
                 error : false,
                 success : true,
                 data : generatedOrder

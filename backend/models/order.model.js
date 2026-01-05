@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
 
-      userId : {
+    userId : {
         type:mongoose.Schema.ObjectId,
            ref : "User"
     },
@@ -20,6 +20,7 @@ const orderSchema = new mongoose.Schema({
     product_details : {
         name : String,
         image : Array,
+        price : Number,
         
     },
     paymentId : {

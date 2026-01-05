@@ -1,9 +1,5 @@
 import React from 'react'
 import UserMenu from '../components/UserMenu'
-import useMobile from '../hooks/useMobile.jsx';
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { IoClose } from "react-icons/io5";
 
 const UserMenuMobile = () => {
