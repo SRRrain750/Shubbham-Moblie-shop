@@ -4,12 +4,14 @@ import userReducer from "./userSlice.js"; // ✅ correct import path
 import productReducer from './productSlice.js'
 import cartReducer  from './cartProduct.js'
 import addressReducer from './addressSlice.js'
+import orderReducer from './orderSlice.js'
  const store = configureStore({
   reducer: {
     user : userReducer,
     product : productReducer,
     cartItem : cartReducer,
-    addresses : addressReducer
+    addresses : addressReducer,
+    orders : orderReducer,
   },
 });
 

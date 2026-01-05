@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 
 const CheckoutPage = () => {
 
-     const { notDiscountTotalPrice, totalPrice,totalQty,fetchCartItem } = useGlobalContext()
+     const { notDiscountTotalPrice, totalPrice,totalQty,fetchCartItem,fetchOrder } = useGlobalContext()
 
      const [ openAddress, setOpenAddress] = useState(false)
      const [ selectAddress, setSelectAddress ] = useState(0)
@@ -48,6 +48,9 @@ const CheckoutPage = () => {
                     fetchCartItem()
 
                    }
+                   if(fetchOrder){
+                    fetchOrder()
+                   }
                    navigate('/success',{
                     state : {
                       text : " Order "
@@ -56,6 +59,7 @@ const CheckoutPage = () => {
                }
            }catch(error){
             AxiosToastError(error)
+             
            }     
      }
   return (

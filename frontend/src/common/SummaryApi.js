@@ -152,7 +152,11 @@ const SummaryApi = {
     cashOnDeliveryOrder : {
       url : `${baseUrl}/api/order/cash-on-delivery`,
       method : 'post'
-}
+    },
+    getOrderItems : {
+     url : '/api/order/order-list',
+     method : 'get' 
+    }
 
 };
 

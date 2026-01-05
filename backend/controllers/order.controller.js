@@ -56,6 +56,33 @@ import mongoose from "mongoose"
 
 
 
+export const  GetOrderDetailsController =async(req,res)=>{
+
+    try{
+
+        const userId = req.userId 
+
+        const orderlist = await OrderModel.find({ userId : userId}).sort({ createdAt : -1}).populate('delivery_address')
+        
+        return res.json({
+            message : "Order list",
+            data : orderlist,
+            error : false,
+            success : true
+        })
+
+    }
+    catch(error){
+      return res.status(500).json({
+           message : error.message || error,
+           error : true,
+           success : false
+      })
+
+      
+    }
+}
+
 // import Stripe from "../config/stripe.js";
 // import CartProductModel from "../models/cartproduct.model.js";
 // import OrderModel from "../models/order.model.js";
