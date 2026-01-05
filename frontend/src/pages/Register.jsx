@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { FaRegEyeSlash } from "react-icons/fa6";
-import { FaRegEye } from "react-icons/fa6";
+import { FaRegEyeSlash,FaRegEye } from "react-icons/fa6";
 import toast from 'react-hot-toast';
 import Axios from '../utils/Axios';
 import SummaryApi from '../common/SummaryApi';
@@ -12,24 +11,26 @@ const Register = () => {
         name: "",
         email: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        mobileNumber:"",
     })
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
     const navigate = useNavigate()
 
     const handleChange = (e) => {
         const { name, value } = e.target
 
-        setData((preve) => {
+        setData((prev) => {
             return {
-                ...preve,
+                ...prev,
                 [name]: value
             }
         })
     }
 
-    const valideValue = Object.values(data).every(el => el)
+    const isValid = Object.values(data).every(el => el)
 
 
     const handleSubmit = async(e)=>{
@@ -39,6 +40,11 @@ const Register = () => {
             toast.error(
                 "password and confirm password must be same"
             )
+            return
+        }
+        
+        if (data.mobileNumber.length !== 10) {
+            toast.error("Mobile number must be 10 digits")
             return
         }
 
@@ -58,7 +64,8 @@ const Register = () => {
                     name : "",
                     email : "",
                     password : "",
-                    confirmPassword : ""
+                    confirmPassword : "",
+                    mobileNumber : "",
                 })
                 navigate("/login")
             }
@@ -73,7 +80,7 @@ const Register = () => {
     return (
         <section className='w-full container mx-auto px-2'>
             <div className='bg-white my-4 w-full max-w-lg mx-auto rounded p-7'>
-                <p>Welcome to Shubham-Moblie-Shop</p>
+                <p className='font-semibold'>Welcome to Shubham-Mobile-Shop</p>
 
                 <form className='grid gap-4 mt-6' onSubmit={handleSubmit}>
                     <div className='grid gap-1'>
@@ -113,7 +120,7 @@ const Register = () => {
                                 onChange={handleChange}
                                 placeholder='Enter your password'
                             />
-                            <div onClick={() => setShowPassword(preve => !preve)} className='cursor-pointer'>
+                            <div onClick={() => setShowPassword(prev => !prev)} className='cursor-pointer'>
                                 {
                                     showPassword ? (
                                         <FaRegEye />
@@ -136,7 +143,7 @@ const Register = () => {
                                 onChange={handleChange}
                                 placeholder='Enter your confirm password'
                             />
-                            <div onClick={() => setShowConfirmPassword(preve => !preve)} className='cursor-pointer'>
+                            <div onClick={() => setShowConfirmPassword(prev => !prev)} className='cursor-pointer'>
                                 {
                                     showConfirmPassword ? (
                                         <FaRegEye />
@@ -147,8 +154,27 @@ const Register = () => {
                             </div>
                         </div>
                     </div>
+                    <div className='grid gap-1'>
+                        <label htmlFor='mobileNumber'>Mobile Number :</label>
+                        <div className='bg-blue-50 p-2 border rounded flex items-center focus-within:border-primary-200'>
+                            <input
+                                type='tel'
+                                id='mobileNumber'
+                                className='w-full outline-none'
+                                name='mobileNumber'
+                                value={data.mobileNumber}
+                                onChange={(e) => {
+                                const value = e.target.value.replace(/\D/g, "")
+                                setData(prev => ({ ...prev, mobileNumber: value }))
+                                }}
+                                placeholder='Enter your Mobile Number'
+                                maxLength={10}
+                            />
+                          
+                        </div>
+                    </div>
 
-                    <button disabled={!valideValue} className={` ${valideValue ? "bg-green-800 hover:bg-green-700" : "bg-gray-500" }    text-white py-2 rounded font-semibold my-3 tracking-wide`}>Register</button>
+                    <button disabled={!isValid} className={` ${isValid ? "bg-green-800 hover:bg-green-700" : "bg-gray-500" }    text-white py-2 rounded font-semibold my-3 tracking-wide`}>Register</button>
 
                 </form>
 
