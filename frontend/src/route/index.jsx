@@ -26,6 +26,7 @@ import CartMobile from "../pages/CartMobile.jsx";
 import CheckoutPage from "../pages/CheckoutPage.jsx";
 import Success from "../pages/Success.jsx";
 import Cancel from "../pages/Cancel.jsx";
+import AdminOrders from "../pages/admin/AdminOrders.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
         ]
       },
       {
+        path : "/admin/orders",
+        element : <AdminOrders/>
+      },
+      {
         path : ":category",
         children : [
              {
@@ -143,6 +148,7 @@ const router = createBrowserRouter([
         path : "cancel",
         element : <Cancel/>
       }
+
 
     ]
   }

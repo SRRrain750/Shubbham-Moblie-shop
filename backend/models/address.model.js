@@ -31,9 +31,9 @@ const addressSchema = new mongoose.Schema({
             },
              userId : {
                  type : mongoose.Schema.ObjectId,
-                //   required : true,
-                //   ref : "User"
-                default : ""
+                  required : true,
+                  ref : "User",
+                  default : ""
             }
         },{
             timestamps : true

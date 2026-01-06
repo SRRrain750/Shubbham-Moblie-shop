@@ -14,7 +14,7 @@ import productRouter from "./route/product.route.js";
 import cartRouter from "./route/cart.route.js";
 import addressRouter from "./route/address.route.js";
 import orderRouter from "./route/order.route.js";
-
+import adminOrderRouter from "./route/adminOrder.route.js"
 
 const app =express()
 app.use(cors({
@@ -48,7 +48,7 @@ app.use("/api/product",productRouter)
 app.use("/api/cart",cartRouter)
 app.use("/api/address",addressRouter)
 app.use('/api/order',orderRouter)
-
+app.use('/api/admin',adminOrderRouter)
 connectDB().then(()=>{
   app.listen(PORT,()=>{
   console.log("Server is running ",PORT)

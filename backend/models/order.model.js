@@ -1,94 +1,42 @@
-//import { useThemeProvider } from "flowbite-react";
-import mongoose from "mongoose";
-
-const orderSchema = new mongoose.Schema({
-
-    userId : {
-        type:mongoose.Schema.ObjectId,
-           ref : "User"
-    },
-    orderId : {
-        type : String,
-        required : [true,"Provide orderId"],
-        unique : true
-    },
-    productId : {
-        type : mongoose.Schema.ObjectId,
-        ref : "product"
-
-    },
-    product_details : {
-        name : String,
-        image : Array,
-        price : Number,
-        
-    },
-    paymentId : {
-        type : String,
-        default : ""
-    },
-    payment_Status : {
-        type : String,
-        default : ""
-
-    },
-     delivery_address : {
-        type : mongoose.Schema.ObjectId,
-        ref : 'address'
-    },
-    subTotalAmt : {
-        type : Number,
-        default : 0
-    },
-    totalAmt : {
-        type : Number,
-        default : 0
-    },
-    invoice_receipt : {
-        type : String,
-        default : ""
-    }
-    },
-     {
-        timestamps : true
-})
-
-const OrderModel = mongoose.model('order',orderSchema)
-
-export default OrderModel
-
-
-
 
 // import mongoose from "mongoose";
 
 // const orderSchema = new mongoose.Schema({
+
 //     userId : {
-//         type : mongoose.Schema.ObjectId,
-//         ref : 'User'
+//           type : mongoose.Schema.ObjectId,
+//            ref : "User"
 //     },
 //     orderId : {
 //         type : String,
-//         required : [true, "Provide orderId"],
+//         required : [true,"Provide orderId"],
 //         unique : true
 //     },
-//     productId : {
-//         type : mongoose.Schema.ObjectId,
-//         ref : "product"
-//     },
-//     product_details : {
-//         name : String,
-//         image : Array,
-//     },
+//   products: [
+//     {
+//       productId: {
+//         type: mongoose.Schema.ObjectId,
+//         ref: "product"
+//       },
+//       product_details: {
+//         name: String,
+//         image: String, // or Array if multiple images
+//         price: Number,
+        
+//       },
+
+//     }
+//   ],
 //     paymentId : {
 //         type : String,
 //         default : ""
 //     },
-//     payment_status : {
+//     payment_Status : {
 //         type : String,
 //         default : ""
+
 //     },
-//     delivery_address : {
+//      delivery_address : {
 //         type : mongoose.Schema.ObjectId,
 //         ref : 'address'
 //     },
@@ -104,10 +52,67 @@ export default OrderModel
 //         type : String,
 //         default : ""
 //     }
-// },{
-//     timestamps : true
+//     },
+//      {
+//         timestamps : true
 // })
 
 // const OrderModel = mongoose.model('order',orderSchema)
 
 // export default OrderModel
+
+
+
+
+import mongoose from "mongoose";
+
+const orderSchema = new mongoose.Schema({
+    userId : {
+        type : mongoose.Schema.ObjectId,
+        ref : 'User'
+    },
+    orderId : {
+        type : String,
+        required : [true, "Provide orderId"],
+        unique : true
+    },
+    productId : {
+        type : mongoose.Schema.ObjectId,
+        ref : "product"
+    },
+    product_details : {
+        name : String,
+        image : Array,
+        price : Number
+    },
+    paymentId : {
+        type : String,
+        default : ""
+    },
+    payment_status : {
+        type : String,
+        default : ""
+    },
+    delivery_address : {
+        type : mongoose.Schema.ObjectId,
+        ref : 'address'
+    },
+    subTotalAmt : {
+        type : Number,
+        default : 0
+    },
+    totalAmt : {
+        type : Number,
+        default : 0
+    },
+    invoice_receipt : {
+        type : String,
+        default : ""
+    }
+},{
+    timestamps : true
+})
+
+const OrderModel = mongoose.model('order',orderSchema)
+
+export default OrderModel
