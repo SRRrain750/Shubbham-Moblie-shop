@@ -69,7 +69,7 @@ const MyOrders = () => {
                     <img
                       src={order.product_details.image[0]} 
                       className='w-14 h-14'
-                    />  
+                    />        
                      <p className='font-medium'>{order.product_details.name}</p>
                      <p className='font-medium'>{DisplayPriceInRupees(order.product_details.price)}</p>
                   </div>
