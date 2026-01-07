@@ -155,7 +155,7 @@ const Home = () => {
 
       {/* ================= Static Banner ================= */}
       <div className='container mx-auto mt-3'>
-        <div className={`w-full min-h-48  bg-blue-100 ${!bannerStatic && "animate-pulse my-2"}`}>
+        <div className="w-full h-[100px] sm:h-[220px] md:h-[300px] lg:h-[380px] bg-blue-100 overflow-hidden ">
           <img
             src={bannerStatic}
             className='w-full h-full object-cover'
@@ -166,7 +166,7 @@ const Home = () => {
 
       {/* ================= Dynamic Banner Slider ================= */}
       <div className='container mx-auto mt-4'>
-        <div className={`w-full min-h-48  bg-blue-100 ${!dynamicBanners && "animate-pulse my-2"}`}>
+        <div className={`w-full min-h ${!dynamicBanners && "animate-pulse my-2"}`}>
 
           {/* Slider Image (VISIBLE ON ALL SCREENS) */}
           <img

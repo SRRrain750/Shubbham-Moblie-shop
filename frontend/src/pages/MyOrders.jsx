@@ -1,6 +1,6 @@
 // import React from 'react'
 // import { useSelector } from 'react-redux'
- import DisplayPriceInRupees from '../utils/DisplayPriceInRupees'
+//  import DisplayPriceInRupees from '../utils/DisplayPriceInRupees'
 // import NoData from '../components/NoData'
 // const MyOrders = () => {
 //   const orders = useSelector(state => state.orders.order)
@@ -45,7 +45,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import NoData from '../components/NoData'
-
+import DisplayPriceInRupees from '../utils/DisplayPriceInRupees'
 const MyOrders = () => {
   const orders = useSelector(state => state.orders.order)
 
