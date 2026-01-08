@@ -301,7 +301,7 @@ const Header = () => {
       {totalQty > 0 && (
         <div
           onClick={() => setOpenCartSection(true)}
-          className="lg:hidden fixed bottom-16 right-4 bg-green-700 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-3 z-50"
+          className="lg:hidden fixed bottom-16 right-4 bg-green-700 text-white px-4 py-3 rounded shadow-lg flex items-center gap-3 z-50"
         >
           <div className="animate-bounce">
             <MdShoppingCartCheckout size={22} />

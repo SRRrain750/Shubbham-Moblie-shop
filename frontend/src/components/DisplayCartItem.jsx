@@ -243,9 +243,9 @@ const DisplayCartItem = ({ close }) => {
                   </p>
                 </div>
 
-                <div className="flex justify-between text-sm">
+                <div className=" flex  justify-between text-sm">
                   <p>Quantity</p>
-                  <p>{totalQty} item</p>
+                  <p className=''>{totalQty} item</p>
                 </div>
 
                 <div className="flex justify-between font-semibold">
