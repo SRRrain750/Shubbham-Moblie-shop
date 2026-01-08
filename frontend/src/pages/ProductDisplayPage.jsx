@@ -60,7 +60,7 @@ const ProductDisplayPage = () => {
   }
   console.log("product data ",data)
   return (
-         <section className='container mx-auto p-4 grid lg:grid-cols-2'>
+         <section className='container mx-auto p-4 pb-24 lg:pb-4 grid lg:grid-cols-2'>
            <div className=''>
                <div className='bg-white lg:min-h-[65vh] lg:max-h-[65vh] rounded min-h-56 max-h-56 h-full w-full'>
                     <img

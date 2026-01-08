@@ -37,9 +37,9 @@ const UploadProduct = () => {
   const handleChange = (e)=>{
     const { name, value} = e.target 
 
-    setData((preve)=>{
+    setData((prev)=>{
       return{
-          ...preve,
+          ...prev,
           [name] : value
       }
     })
@@ -57,47 +57,47 @@ const UploadProduct = () => {
         const { data : ImageResponse} = response
         const imageUrl = ImageResponse.data.url
         
-        setData((preve)=>{
+        setData((prev)=>{
           return{
-            ...preve,
-            image : [...preve.image,imageUrl]
+            ...prev,
+            image : [...prev.image,imageUrl]
           }
         })
         setImageLoading(false)
   }
   const handleDeleteImage = async(index)=>{
          data.image.splice(index,1)
-         setData((preve)=>{
+         setData((prev)=>{
               return{
-                ...preve
+                ...prev
               }
          })
   }
 
   const handleRemoveCategory = async(index)=>{
         data.category.splice(index,1)
-        setData((preve)=>{
+        setData((prev)=>{
           return{
-            ...preve
+            ...prev
           }
         })
   }
 
   const handleRemoveSubCategory = async(index)=>{
       data.subCategory.splice(index,1)
-        setData((preve)=>{
+        setData((prev)=>{
           return{
-            ...preve
+            ...prev
           }
         })
   }
 
   const handleAddField = async(index)=>{
-      setData((preve)=>{
+      setData((prev)=>{
         return{
-          ...preve,
+          ...prev,
           more_details :{
-            ...preve.more_details,
+            ...prev.more_details,
             [fieldName] : ""
           }
         }
@@ -235,10 +235,10 @@ const UploadProduct = () => {
                         const category = allCategory.find(el => el._id === value)
                         console.log(category)
 
-                        setData((preve)=>{
+                        setData((prev)=>{
                           return{
-                            ...preve,
-                            category : [...preve.category,category]
+                            ...prev,
+                            category : [...prev.category,category]
                           }
                         })
                         setSelectCategory("")
@@ -281,10 +281,10 @@ const UploadProduct = () => {
                         const subCategory = allSubCategory.find(el => el._id === value)
                         console.log(subCategory)
 
-                        setData((preve)=>{
+                        setData((prev)=>{
                           return{
-                            ...preve,
-                            subCategory : [...preve.subCategory,subCategory]
+                            ...prev,
+                            subCategory : [...prev.subCategory,subCategory]
                           }
                         })
                         setSelectSubCategory("")
@@ -382,11 +382,11 @@ const UploadProduct = () => {
              value={data?.more_details[k]}
              onChange={(e)=>{
                  const value =e.target.value
-                 setData((preve)=>{
+                 setData((prev)=>{
                   return{
-                    ...preve,
+                    ...prev,
                     more_details : {
-                      ...preve.more_details,
+                      ...prev.more_details,
                       [k]:value
                     }
                   }

@@ -155,7 +155,7 @@ const Home = () => {
 
       {/* ================= Static Banner ================= */}
       <div className='container mx-auto mt-3'>
-        <div className="w-full h-[100px] sm:h-[220px] md:h-[300px] lg:h-[380px] bg-blue-100 overflow-hidden ">
+        <div className="w-full h-[100px] sm:h-[250px] md:h-[300px] lg:h-[300px] bg-blue-100 overflow-hidden ">
           <img
             src={bannerStatic}
             className='w-full h-full object-cover'
@@ -181,7 +181,7 @@ const Home = () => {
               <span
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full cursor-pointer transition-all ${
+                className={`w-2 h-2 rounded-full cursor-pointer transition-all ${
                   currentIndex === index ? 'bg-white' : 'bg-gray-400'
                 }`}
               />

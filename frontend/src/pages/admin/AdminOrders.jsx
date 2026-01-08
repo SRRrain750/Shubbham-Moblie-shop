@@ -24,7 +24,7 @@ const AdminOrders = () => {
 
   return (
     
-    <div className="p-6 bg-gray-50 min-h-screen space-y-4">
+    <div className="p-6 sm:p-6 bg-gray-50 min-h-screen space-y-4">
       
       <div className='bg-white shadow-xl p-3 font-semibold'>
         <h1> All Order </h1>
@@ -32,14 +32,15 @@ const AdminOrders = () => {
 
 
       {orders.map((order) => (
-        <div key={order._id} className="flex bg-white shadow rounded-lg overflow-hidden">
+        <div key={order._id}
+         className=" bg-white shadow rounded-lg overflow-hidden  flex flex-col sm:flex-row">
           
           {/* Left: Product Image */}
-          <div className="w-40 h-40 flex-shrink-0 ">
+          <div className=" px-1 w-full sm:w-40  justify-center sm:justify-center">
             <img
               src={order.productId?.image[0]}
               alt={order.productId?.name}
-              className=" w-30 h-30 p-4"
+              className=" w-30 h-30 sm:w-32 sm:h-32  p-4"
             />
             <p className=" p-1 px-2 "><strong>Product : </strong> {order.productId?.name} </p>
           </div>
