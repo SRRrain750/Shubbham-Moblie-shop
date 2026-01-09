@@ -1,12 +1,17 @@
 import jwt from 'jsonwebtoken'
 
-const generatedAccessToken =(userId)=>{
+const generatedAccessToken = async(userId)=>{
     const token = jwt.sign({ id:userId},
          process.env.SECRET_KEY_ACCESS_TOKEN,
-           {expiresIn : '1d'}
+           {expiresIn : '30d'}
         )
 
+         await UserModel.updateOne(
+              { _id: userId },
+            { refresh_token: token }
+          )
+
         return token
-}
+    }
 
 export default generatedAccessToken;
