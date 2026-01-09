@@ -27,6 +27,11 @@ import CheckoutPage from "../pages/CheckoutPage.jsx";
 import Success from "../pages/Success.jsx";
 import Cancel from "../pages/Cancel.jsx";
 import AdminOrders from "../pages/admin/AdminOrders.jsx";
+import Mobiles from "../pages/Mobiles.jsx";
+import Accessories from "../pages/Accessories.jsx";
+import Policy from "../pages/Policy.jsx";
+import Returns from "../pages/Returns.jsx";
+import Contact from "../pages/Contact.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -147,7 +152,28 @@ const router = createBrowserRouter([
       {
         path : "cancel",
         element : <Cancel/>
+      },
+      {
+        path : "mobiles",
+        element : <Mobiles/>
+      },
+      {
+        path : "accessories",
+        element : <Accessories/>
+      },
+      {
+        path : "policy",
+        element : <Policy/>
+      },
+      {
+        path : "returns",
+        element : <Returns/>
+      },
+      {
+        path : "contact",
+        element : <Contact/>
       }
+
 
 
     ]

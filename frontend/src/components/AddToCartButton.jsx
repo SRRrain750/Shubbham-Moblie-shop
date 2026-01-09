@@ -92,7 +92,7 @@ const AddToCartButton = ({ data }) => {
         ) : (
           <button
             onClick={handleAddToCart}
-            className="bg-green-600 text-white px-4 py-1 rounded"
+            className="bg-green-500 text-white px-4 py-1 rounded"
           >
             {loading ? <Loading /> : "Add"}
           </button>

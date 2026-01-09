@@ -187,7 +187,6 @@ import logo from '../assets/logo.svg'
 import Search from './Search.jsx'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { FaRegCircleUser } from "react-icons/fa6"
-import useMobile from '../hooks/useMobile.jsx'
 import { MdShoppingCartCheckout } from "react-icons/md"
 import { useSelector } from 'react-redux'
 import { GoTriangleUp, GoTriangleDown } from "react-icons/go"
@@ -197,81 +196,74 @@ import { useGlobalContext } from '../provider/GlobalProvider.jsx'
 import DisplayCartItem from './DisplayCartItem.jsx'
 
 const Header = () => {
-  const { isMobile } = useMobile()
   const location = useLocation()
-  const isSearchPage = location.pathname === "/search"
   const navigate = useNavigate()
-
+  const { totalQty, totalPrice } = useGlobalContext()
   const user = useSelector(state => state.user)
-  const cartItem = useSelector(state => state.cartItem.cart)
-
-  const { totalPrice, totalQty } = useGlobalContext()
 
   const [openUserMenu, setOpenUserMenu] = useState(false)
   const [openCartSection, setOpenCartSection] = useState(false)
 
-  const redirectToLoginPage = () => {
-    navigate('/login')
-  }
+  // Pages where cart button should be hidden
+  const hideCartPages = ['/checkout', '/success', '/cancel']
+  const hideCart = hideCartPages.includes(location.pathname)
 
   const handleMobileUser = () => {
-    if (!user?._id) {
-      navigate("/login")
-      return
-    }
+    if (!user?._id) return navigate("/login")
     navigate("/user")
   }
 
   return (
     <>
+      {/* HEADER */}
       <header className="h-28 lg:h-20 lg:shadow-md sticky top-0 z-40 bg-white flex flex-col justify-center gap-1">
-        {!(isSearchPage && isMobile) && (
-          <div className="container px-4 lg:px-8 flex items-center justify-between">
-            
-            {/* LOGO */}
-            <Link to="/" className="flex items-center">
-              <img src={logo} alt="logo" className="hidden lg:block w-[180px]" />
-              <img src={logo} alt="logo" className="lg:hidden w-[120px]" />
-            </Link>
+        <div className="container px-4 lg:px-8 flex items-center justify-between">
+          
+          {/* LOGO */}
+          <Link to="/" className="flex items-center">
+            <img src={logo} alt="logo" className="hidden lg:block w-[180px]" />
+            <img src={logo} alt="logo" className="lg:hidden w-[120px]" />
+          </Link>
 
-            {/* SEARCH (DESKTOP) */}
-            <div className="hidden lg:block">
-              <Search />
-            </div>
+          {/* SEARCH */}
+          <div className="hidden lg:block">
+            <Search />
+          </div>
 
-            {/* RIGHT SECTION */}
-            <div className="flex items-center gap-4">
+          {/* RIGHT SECTION */}
+          <div className="flex items-center gap-4">
 
-              {/* MOBILE USER ICON */}
-              <button className="lg:hidden text-neutral-600" onClick={handleMobileUser}>
-                <FaRegCircleUser size={28} />
-              </button>
+            {/* MOBILE USER */}
+            <button className="lg:hidden text-neutral-600" onClick={handleMobileUser}>
+              <FaRegCircleUser size={28} />
+            </button>
 
-              {/* DESKTOP USER + CART */}
-              <div className="hidden lg:flex items-center gap-10">
-                {user?._id ? (
-                  <div className="relative">
-                    <div
-                      onClick={() => setOpenUserMenu(prev => !prev)}
-                      className="flex items-center gap-1 cursor-pointer select-none"
-                    >
-                      <p>Account</p>
-                      {openUserMenu ? <GoTriangleUp size={22} /> : <GoTriangleDown size={22} />}
-                    </div>
-
-                    {openUserMenu && (
-                      <div className="absolute top-12 right-0 bg-white shadow-lg rounded p-4 min-w-52">
-                        <UserMenu close={() => setOpenUserMenu(false)} />
-                      </div>
-                    )}
+            {/* DESKTOP USER + CART */}
+            <div className="hidden lg:flex items-center gap-10">
+              {user?._id ? (
+                <div className="relative">
+                  <div
+                    onClick={() => setOpenUserMenu(prev => !prev)}
+                    className="flex items-center gap-1 cursor-pointer select-none"
+                  >
+                    <p>Account</p>
+                    {openUserMenu ? <GoTriangleUp size={22} /> : <GoTriangleDown size={22} />}
                   </div>
-                ) : (
-                  <button onClick={redirectToLoginPage} className="text-lg text-neutral-600 hover:text-yellow-600">
-                    Login
-                  </button>
-                )}
 
-                {/* DESKTOP CART */}
+                  {openUserMenu && (
+                    <div className="absolute top-12 right-0 bg-white shadow-lg rounded p-4 min-w-52">
+                      <UserMenu close={() => setOpenUserMenu(false)} />
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <button onClick={() => navigate('/login')} className="text-lg text-neutral-600 hover:text-yellow-600">
+                  Login
+                </button>
+              )}
+
+              {/* DESKTOP CART (hidden on certain pages) */}
+              {!hideCart && (
                 <button
                   onClick={() => setOpenCartSection(true)}
                   className="flex items-center gap-3 bg-green-800 hover:bg-green-700 px-4 py-2 rounded text-white"
@@ -286,19 +278,19 @@ const Header = () => {
                     <p>My Cart</p>
                   )}
                 </button>
-              </div>
+              )}
             </div>
           </div>
-        )}
+        </div>
 
-        {/* SEARCH (MOBILE) */}
+        {/* SEARCH MOBILE */}
         <div className="container mx-auto px-2 lg:hidden">
           <Search />
         </div>
       </header>
 
-      {/* ================= MOBILE CART FLOATING BUTTON ================= */}
-      {totalQty > 0 && (
+      {/* MOBILE FLOATING CART BUTTON */}
+      {!hideCart && totalQty > 0 && (
         <div
           onClick={() => setOpenCartSection(true)}
           className="lg:hidden fixed bottom-16 right-4 bg-green-700 text-white px-4 py-3 rounded shadow-lg flex items-center gap-3 z-50"
@@ -315,7 +307,7 @@ const Header = () => {
       )}
 
       {/* CART DRAWER */}
-      {openCartSection && (
+      {!hideCart && openCartSection && (
         <DisplayCartItem close={() => setOpenCartSection(false)} />
       )}
     </>
@@ -323,3 +315,4 @@ const Header = () => {
 }
 
 export default Header
+
