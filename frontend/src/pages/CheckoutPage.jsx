@@ -332,7 +332,7 @@ const CheckoutPage = () => {
                 </button>
 
                 <button
-                  className='px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700'
+                  className='px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700'
                   onClick={() => {
                     setShowConfirm(false)
                     handleCashOnDelivery()
