@@ -128,7 +128,7 @@ const fetchAddress =async()=>{
           dispatch(handleAddAddress(responseData.data))
         }
   }catch(error){
-     //AxiosToastError(error)
+     AxiosToastError(error)
   }
 }
 
