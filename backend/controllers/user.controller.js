@@ -168,11 +168,19 @@ export async function loginController(req, res) {
          })
       }
 
-      const accesstoken = await generatedAccessToken(user._id)
-      const refreshtoken = await generatedRefreshToken(user._id)
+      // const accesstoken = await generatedAccessToken(user._id)
+      // const refreshtoken = await generatedRefreshToken(user._id)
+
+      
       const updateUser = await UserModel.findByIdAndUpdate(user?._id, {
          last_login_date: new Date()
       })
+
+      console.log("Before token")
+          const accesstoken = await generatedAccessToken(user._id)
+               console.log("Access token created")
+           const refreshtoken = await generatedRefreshToken(user._id)
+               console.log("Refresh token created")
 
       const cookiesOption = {
          httpOnly: true,

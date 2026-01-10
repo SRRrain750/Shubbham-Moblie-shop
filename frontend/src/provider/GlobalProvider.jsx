@@ -36,7 +36,7 @@ const GlobalProvider = ({children}) => {
         console.log(responseData)
       }
     }catch(error){
-      console.log(error)
+      //console.log(error)
     }
   }
 
@@ -92,21 +92,21 @@ const GlobalProvider = ({children}) => {
    //total Items &  total Price
   useEffect(()=>{
 
-       const qty = cartItem.reduce((preve,curr)=>{
-        return preve + curr.quantity
+       const qty = cartItem.reduce((prev,curr)=>{
+        return prev + curr.quantity
        },0)
        setTotalQty(qty)
       
-       const  tPrice = cartItem.reduce((preve,curr)=>{
+       const  tPrice = cartItem.reduce((prev,curr)=>{
         const priceAfterDiscount = priceWithDiscount(curr?.productId?.price,
           curr?.productId?.discount)
 
-        return preve + ( priceAfterDiscount * curr.quantity)
+        return prev + ( priceAfterDiscount * curr.quantity)
        },0)
        setTotalPrice(tPrice)
 
-       const notDiscountPrice =  cartItem.reduce((preve,curr)=>{
-        return preve + ( curr?.productId?.price * curr.quantity)
+       const notDiscountPrice =  cartItem.reduce((prev,curr)=>{
+        return prev + ( curr?.productId?.price * curr.quantity)
        },0)
        setNotDiscountTotalPrice(notDiscountPrice)
   },[cartItem])
