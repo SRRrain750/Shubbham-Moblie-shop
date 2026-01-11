@@ -10,9 +10,7 @@ import { setAllCategory , setAllSubCategory,setLoadingCategory} from './store/pr
 import { useDispatch } from 'react-redux'
 import Axios from './utils/Axios.js'
 import SummaryApi from './common/SummaryApi.js'
-import { handleAddItemCart } from './store/cartProduct.js'
 import GlobalProvider from './provider/GlobalProvider.jsx'
-import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 import CartMobileLink from './components/CartMobile.jsx'
 
 function App() {

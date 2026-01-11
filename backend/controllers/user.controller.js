@@ -83,7 +83,7 @@ export async function registerUserController(req, res) {
 
 
 
-// -----------verify email Controller
+// -----------verify email Controller------
 export async function verifyEmailController(req, res) {
 
    try {
@@ -168,16 +168,24 @@ export async function loginController(req, res) {
          })
       }
 
-      const accesstoken = await generatedAccessToken(user._id)
-      const refreshtoken = await generatedRefreshToken(user._id)
+      // const accesstoken = await generatedAccessToken(user._id)
+      // const refreshtoken = await generatedRefreshToken(user._id)
+
+      
       const updateUser = await UserModel.findByIdAndUpdate(user?._id, {
          last_login_date: new Date()
       })
 
+      console.log("Before token")
+          const accesstoken = await generatedAccessToken(user._id)
+               console.log("Access token created")
+           const refreshtoken = await generatedRefreshToken(user._id)
+               console.log("Refresh token created")
+
       const cookiesOption = {
          httpOnly: true,
-         secure: true,
-         sameSite: "None"
+         secure: false,
+         sameSite: "Lax"
       }
       res.cookie('accessToken', accesstoken, cookiesOption)
       res.cookie('refreshToken', refreshtoken, cookiesOption)
@@ -212,8 +220,8 @@ export async function logoutController(req, res) {
 
       const cookiesOption = {
          httpOnly: true,
-         secure: true,
-         sameSite: "None"
+         secure: false,
+         sameSite: "Lax"
       }
 
 

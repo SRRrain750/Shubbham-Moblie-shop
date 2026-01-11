@@ -7,7 +7,7 @@ import UserModel from '../models/user.model.js'
         const { productId } = req.body 
 
         if(!productId){
-            return res.status(402).json({
+            return res.status(400).json({
                 message : " Provide productId",
                 error : true,
                 success : false
@@ -22,6 +22,8 @@ import UserModel from '../models/user.model.js'
         if(checkItemCart){
             return res.status(400).json({
                 message : "Item already in cart",
+                error: true,
+                success: false,
                
             })
         }
@@ -38,7 +40,7 @@ import UserModel from '../models/user.model.js'
             }
         })
 
-        return  res.json({
+        return res.json({
             data : save ,
             message : "Item Add Successfully ",
             error : false,
