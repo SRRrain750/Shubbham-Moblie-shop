@@ -83,7 +83,7 @@ export async function registerUserController(req, res) {
 
 
 
-// -----------verify email Controller
+// -----------verify email Controller------
 export async function verifyEmailController(req, res) {
 
    try {
@@ -184,8 +184,8 @@ export async function loginController(req, res) {
 
       const cookiesOption = {
          httpOnly: true,
-         secure: true,
-         sameSite: "None"
+         secure: false,
+         sameSite: "Lax"
       }
       res.cookie('accessToken', accesstoken, cookiesOption)
       res.cookie('refreshToken', refreshtoken, cookiesOption)
@@ -220,8 +220,8 @@ export async function logoutController(req, res) {
 
       const cookiesOption = {
          httpOnly: true,
-         secure: true,
-         sameSite: "None"
+         secure: false,
+         sameSite: "Lax"
       }
 
 

@@ -16,7 +16,8 @@ import addressRouter from "./route/address.route.js";
 import orderRouter from "./route/order.route.js";
 import adminOrderRouter from "./route/adminOrder.route.js"
 
-const app =express()
+const app =express();
+app.set("trust proxy", 1); // 🔥 VERY IMPORTANT
 app.use(cors({
   credentials : true,
   origin : process.env.FRONTEND_URL
