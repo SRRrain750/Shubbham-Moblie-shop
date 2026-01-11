@@ -166,7 +166,7 @@ const Home = () => {
 
       {/* ================= Dynamic Banner Slider ================= */}
       <div className='container mx-auto mt-4'>
-        <div className={`w-full min-h ${!dynamicBanners && "animate-pulse my-2"}`}>
+        <div className={`w-full min-h relative ${!dynamicBanners && "animate-pulse my-2"}`}>
 
           {/* Slider Image (VISIBLE ON ALL SCREENS) */}
           <img
